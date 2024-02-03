@@ -1,0 +1,10 @@
+
+key "Super+t" wezterm
+key "Super+m" pcmanfm
+key "Alt+s" sh -c "icesh -f sizeto 98% 98% ; icesh -f center ; icesh -f top"
+key "Alt+l" sh -c "icesh -f right"
+key "Alt+k" sh -c "icesh -f top"
+key "Alt+j" sh -c "icesh -f bottom"
+key "Alt+h" sh -c "icesh -f left"
+key "Alt+ñ" sh -c "icesh -f center"
+key "Alt+." wez-ssh

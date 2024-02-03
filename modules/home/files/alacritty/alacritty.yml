@@ -1,0 +1,13 @@
+window:
+  dimensions:
+    columns: 80
+    lines: 26
+
+  padding:
+    x: 2
+    y: 2
+
+  dynamic_padding: false
+  startup_mode: Windowed
+  decorations: none
+  opacity: 0.7

@@ -1,0 +1,5 @@
+### Commonly used applications
+# prog "Retirar Dispositivo removible" /usr/share/icons/papirus-antix/48x48/devices/drive-removable-media-usb.png unplugdrive.sh
+# prog "Administrador de archivos como root" /usr/share/icons/papirus-antix/48x48/places/folder-red.png pkexec thunar
+prog "Rofi" rofi.png rofi -show drun
+prog "Logout" shutdown.png rofi -show power-menu -modi power-menu:rofi-power-menu

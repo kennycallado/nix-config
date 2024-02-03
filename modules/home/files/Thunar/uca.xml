@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Abrir un terminal aquí</name>
+	<submenu></submenu>
+	<unique-id>1706109690646403-1</unique-id>
+	<command>wezterm start --cwd %f</command>
+	<description>Ejemplo de una acción personalizada</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+</actions>

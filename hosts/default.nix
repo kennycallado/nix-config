@@ -1,0 +1,3 @@
+{ host, ... }: {
+  imports = [ ./${host.name} ];
+}
