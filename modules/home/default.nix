@@ -1,4 +1,4 @@
-{ inputs, pkgs, host, lib, ... }:
+{ inputs, pkgs, host, lib, config, ... }:
 
 {
   imports = [
@@ -11,6 +11,7 @@
     yt-dlp
     # lxappearance
     # pkgs.papirus-icon-theme
+    (import ./scripts/wallsetter.nix { inherit pkgs config; })
     (import ./scripts/wez-ssh.nix { inherit pkgs; })
   ];
 
@@ -18,7 +19,7 @@
   home.homeDirectory = "/home/${host.user.username}";
   home.stateVersion = "23.11";
 
-  home.file."Images/wallpapers" = {
+  home.file."${config.xdg.userDirs.pictures}/wallpapers" = {
     source = ../home/media/wallpapers;
     recursive = true;
   };
@@ -83,10 +84,10 @@
     };
   };
 
-  # xdg = {
-  #   userDirs = {
-  #     enable = true;
-  #     createDirectories = true;
-  #   };
-  # };
+  xdg = {
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+    };
+  };
 }
