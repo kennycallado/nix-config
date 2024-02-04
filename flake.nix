@@ -45,6 +45,10 @@
           userHashedPassword = "$y$j9T$K.6mI6Iv5sfsaGlxYcSA61$TYINtbstV0sqY2DusfTGIaiTd.iKDmJ/QV.IE0Ubbf9"; # mkpasswd -m help
           rootHashedPassword = "$y$j9T$DH2RAr03g1LijzG.F6u9Y.$.3juBtQvbWBWpZTI6jpVcF04TXdXqOkbxhr/Ya.9bcA"; # mkpasswd -m help
         };
+
+        extraPackages = with inputs.nixpkgs.legacyPackages."${host.arch}"; [
+          firefox
+        ];
       };
     in
     {

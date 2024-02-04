@@ -33,6 +33,7 @@ in
 
   environment = {
     systemPackages = with pkgs; [
+      # host.extraPackages
       curl
       wget
       tree
@@ -46,7 +47,7 @@ in
       unar
       neovim
       lm_sensors # it's ok here?
-    ];
+    ] ++ host.extraPackages;
 
     variables = {
       EDITOR = "nvim";
