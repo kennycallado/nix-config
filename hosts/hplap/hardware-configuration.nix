@@ -16,8 +16,8 @@
   fileSystems."/boot" = { device = "/dev/disk/by-label/BOOT"; };
   fileSystems."/nix/store" = { device = "/dev/disk/by-label/STORE"; };
   fileSystems."/home" = { device = "/dev/disk/by-label/HOME"; };
-  fileSystems."/home/steam" = {
-    device = "/dev/disk/by-label/STEAM";
+  fileSystems."/home/shared" = {
+    device = "/dev/disk/by-label/SHARED";
     fsType = "ntfs-3g";
     options = [ "rw" "uid=1000" "gid=100" "user" "exec" "umask=000" "locale=es_ES.utf8" ];
   };
