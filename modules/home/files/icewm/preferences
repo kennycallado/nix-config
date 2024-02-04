@@ -359,6 +359,26 @@ DesktopMenuButton=0 # [0-20]
 #  Takes the active window to workspace 9.
 # KeySysWorkspace9TakeWin="Alt+Ctrl+Shift+9"
 
+KeySysWorkspace1="Super+1"
+KeySysWorkspace2="Super+2"
+KeySysWorkspace3="Super+3"
+KeySysWorkspace4="Super+4"
+KeySysWorkspace5="Super+5"
+KeySysWorkspace6="Super+6"
+KeySysWorkspace7="Super+7"
+KeySysWorkspace8="Super+8"
+KeySysWorkspace9="Super+9"
+
+KeySysWorkspace1TakeWin="Super+Shift+1"
+KeySysWorkspace2TakeWin="Super+Shift+2"
+KeySysWorkspace3TakeWin="Super+Shift+3"
+KeySysWorkspace4TakeWin="Super+Shift+4"
+KeySysWorkspace5TakeWin="Super+Shift+5"
+KeySysWorkspace6TakeWin="Super+Shift+6"
+KeySysWorkspace7TakeWin="Super+Shift+7"
+KeySysWorkspace8TakeWin="Super+Shift+8"
+KeySysWorkspace9TakeWin="Super+Shift+9"
+
 #  Goes to the previous workspace.
 # KeySysWorkspaceLast="Alt+Ctrl+Down"
 
