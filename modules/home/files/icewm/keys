@@ -1,10 +1,23 @@
+# ? key "Super+i" x-terminal-emulator -e backlight-brightness --pause
+# ? key "Super+x" i3lock-fancy
 
+# launch
 key "Super+t" wezterm
-key "Super+m" pcmanfm
-key "Alt+s" sh -c "icesh -f sizeto 98% 98% ; icesh -f center ; icesh -f top"
-key "Alt+l" sh -c "icesh -f right"
-key "Alt+k" sh -c "icesh -f top"
-key "Alt+j" sh -c "icesh -f bottom"
-key "Alt+h" sh -c "icesh -f left"
-key "Alt+ñ" sh -c "icesh -f center"
-key "Alt+." wez-ssh
+key "Super+f" pcmanfm
+key "Super+w" firefox
+key "Super+q" rofi -show power-menu -modi power-menu:rofi-power-menu
+key "Super+l" luakit
+
+# move window
+key "Super+Shift+k" sh -c "icesh -f top"
+key "Super+Shift+j" sh -c "icesh -f bottom"
+key "Super+Shift+h" sh -c "icesh -f left"
+key "Super+Shift+l" sh -c "icesh -f right"
+key "Super+Shift+ñ" sh -c "icesh -f center"
+
+# resize window
+key "Super+Ctrl+s" sh -c "icesh -f sizeto 98% 98% ; icesh -f center ; icesh -f top"
+key "Super+Ctrl+k" sh -c "icesh -f getGeometry | sed -rn 's/[^[:digit:]]*([[:digit:]]+)[^[:digit:]]+([[:digit:]]+)[^[:digit:]]*/echo $((\1+0))x$((\2-20))+/p' | xargs -I[] sh -c [] | xargs -I[] icesh -f setGeometry []"
+key "Super+Ctrl+j" sh -c "icesh -f getGeometry | sed -rn 's/[^[:digit:]]*([[:digit:]]+)[^[:digit:]]+([[:digit:]]+)[^[:digit:]]*/echo $((\1+0))x$((\2+20))+/p' | xargs -I[] sh -c [] | xargs -I[] icesh -f setGeometry []"
+key "Super+Ctrl+h" sh -c "icesh -f getGeometry | sed -rn 's/[^[:digit:]]*([[:digit:]]+)[^[:digit:]]+([[:digit:]]+)[^[:digit:]]*/echo $((\1-20))x$((\2+0))+/p' | xargs -I[] sh -c [] | xargs -I[] icesh -f setGeometry []"
+key "Super+Ctrl+l" sh -c "icesh -f getGeometry | sed -rn 's/[^[:digit:]]*([[:digit:]]+)[^[:digit:]]+([[:digit:]]+)[^[:digit:]]*/echo $((\1+20))x$((\2+0))+/p' | xargs -I[] sh -c [] | xargs -I[] icesh -f setGeometry []"

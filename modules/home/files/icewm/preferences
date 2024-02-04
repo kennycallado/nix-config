@@ -416,16 +416,6 @@ DesktopMenuButton=0 # [0-20]
 #  Moves the active window to the middle left of the screen.
 # KeyWinArrangeW="Ctrl+Alt+KP_Left"
 
-KeyWinArrangeN="Alt+Ctrl+k" # Up-Move window Top 
-# KeyWinArrangeNE="Alt+Ctrl+KP_Prior" # PgUp-Move window Top Right 
-KeyWinArrangeE="Alt+Ctrl+l" # Right-Move window to Right 
-# KeyWinArrangeSE="Alt+Ctrl+KP_Next" # PgDn-Move window to Bottom Right 
-KeyWinArrangeS="Alt+Ctrl+j" # Down-Move window to Bottom 
-# KeyWinArrangeSW="Alt+Ctrl+KP_End" # End-Move window to Bottom Left 
-KeyWinArrangeW="Alt+Ctrl+h" # Left-Move window to Left 
-# KeyWinArrangeNW="Alt+Ctrl+KP_Home" # Home-Move window to Top Left 
-KeyWinArrangeC="Alt+Ctrl+ñ" # 5-Center window
-
 #  Closes the active window.
 # KeyWinClose="Alt+F4"
 
