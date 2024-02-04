@@ -1400,7 +1400,7 @@ WorkspaceNames=" 1 ", " 2 ", " 3 ", " 4 "
 # RolloverButtonsSupported=0 # 0/1
 
 #  Scrollbar width.
-# ScrollBarX=16 # [0-64]
+ScrollBarX=18 # [0-64]
 
 #  Scrollbar (button) height.
 # ScrollBarY=16 # [0-64]
@@ -1442,7 +1442,7 @@ WorkspaceNames=" 1 ", " 2 ", " 3 ", " 4 "
 # TitleBarCentered=0 # 0/1
 
 #  Title bar height.
-# TitleBarHeight=20 # [0-128]
+TitleBarHeight=32 # [0-128]
 
 #  Horizontal offset for the window title text.
 # TitleBarHorzOffset=0 # [-128-128]
