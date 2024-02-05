@@ -16,7 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.users."${host.user.username}" = {
+    users.users."${host.config.user.username}" = {
       extraGroups = [ "libvirtd" ] ++ lib.lists.optional
         (cfg.containers.enable && (cfg.containers.backend == "docker")) "docker";
     };

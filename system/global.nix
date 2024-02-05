@@ -12,7 +12,7 @@ in
     agenix
   ];
 
-  services.qemuGuest = lib.mkIf (host.is_vm) {
+  services.qemuGuest = lib.mkIf (host.config.is_vm) {
     enable = true;
   };
 
@@ -27,7 +27,7 @@ in
   systemd.services.NetworkManager-wait-online.enable = false; # TODO where?
 
   networking.useNetworkd = true;
-  networking.hostName = "${host.name}";
+  networking.hostName = "${host.config.name}";
   networking.networkmanager.enable = true;
   networking.firewall.allowedTCPPorts = [ 8888 ];
 
@@ -47,7 +47,7 @@ in
       unar
       neovim
       lm_sensors # it's ok here?
-    ] ++ host.extraPackages;
+    ] ++ host.config.extraPackages;
 
     variables = {
       EDITOR = "nvim";
@@ -65,13 +65,13 @@ in
 
   users = {
     mutableUsers = false;
-    users."${host.user.username}" = {
+    users."${host.config.user.username}" = {
       isNormalUser = true;
       createHome = true;
       extraGroups = [ "wheel" "networkmanager" "disk" "video" "audio" ];
-      hashedPassword = "${host.user.userHashedPassword}";
+      hashedPassword = "${host.config.user.userHashedPassword}";
     };
-    users.root.hashedPassword = "${host.user.rootHashedPassword}";
+    users.root.hashedPassword = "${host.config.user.rootHashedPassword}";
   };
 
   nix = {

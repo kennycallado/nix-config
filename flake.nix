@@ -15,8 +15,12 @@
 
   outputs = inputs@{ home-manager, ... }:
     let
-      host = {
-        name = "ryzen"; # ryzen | hplap
+      known=""; # ryzen | hplap
+
+      config = {
+        hardwarePath = "/etc/nixos/hardware-configuration.nix"; # nixos-generate-config --show-hardware-config
+
+        name = "vm";
         arch = "x86_64-linux";
         is_vm = true; # are we building for a VM?
         desktops = {
@@ -24,7 +28,7 @@
           # terminal = inputs.nixpkgs.legacyPackages.x86_64-linux.alacritty; # default
           icewm.enable = true;
           icewm.default = false; # set icewm session as default
-          hyprland.enable = true;
+          hyprland.enable = false;
           sway.enable = false;
         };
 
@@ -34,7 +38,7 @@
           enable = false;
           containers = {
             enable = false;
-            backend = "docker"; # podman | docker
+            backend = "podman"; # podman | docker
           };
         };
 
@@ -45,29 +49,40 @@
           userHashedPassword = "$y$j9T$K.6mI6Iv5sfsaGlxYcSA61$TYINtbstV0sqY2DusfTGIaiTd.iKDmJ/QV.IE0Ubbf9"; # mkpasswd -m help
           rootHashedPassword = "$y$j9T$DH2RAr03g1LijzG.F6u9Y.$.3juBtQvbWBWpZTI6jpVcF04TXdXqOkbxhr/Ya.9bcA"; # mkpasswd -m help
           pref = {
-            browser = "firefox";
+            browser = "luakit";
             terminal = "alacritty";
           };
         };
 
         development = {
-          enable = true;
-          lunarvim.enable = true;
-          rust.enable = true;
+          enable = false;
+          lunarvim.enable = false;
+          rust.enable = false;
         };
 
         extraPackages = with inputs.nixpkgs.legacyPackages."${host.arch}"; [
-          firefox
+          # firefox
         ];
       };
+
+      # -- evaluation --
+      is_known = builtins.pathExists ./hosts/${known}/config.nix;
+      host =
+        if (is_known)
+        then (import ./hosts/${known}/config.nix { inherit inputs; })
+        else {config = config;} ;
+      # -- evaluation --
     in
     {
-      nixosConfigurations."${host.name}" = inputs.nixpkgs.lib.nixosSystem {
-        system = host.arch;
+      # nixosConfigurations."${host.config.name}" = inputs.nixpkgs.lib.nixosSystem {
+      nixosConfigurations."${if (is_known) then host.config.name else "unknown" }" = inputs.nixpkgs.lib.nixosSystem {
+        system = host.config.arch;
         specialArgs = {
           inherit host;
+          inherit is_known;
           inputs = inputs;
         };
+
         modules = [
           ./hosts
           ./modules/gaming
@@ -76,10 +91,10 @@
           ./modules/virtualization
 
           {
-            gaming = host.gaming;
-            desktops = host.desktops;
-            development = host.development;
-            virtualization = host.virtualization;
+            gaming = host.config.gaming;
+            desktops = host.config.desktops;
+            development = host.config.development;
+            virtualization = host.config.virtualization;
           }
 
           home-manager.nixosModules.home-manager
@@ -90,7 +105,7 @@
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users."${host.user.username}" = import ./modules/home;
+            home-manager.users."${host.config.user.username}" = import ./modules/home;
           }
         ];
       };

@@ -15,8 +15,8 @@
     (import ./scripts/wez-ssh.nix { inherit pkgs; })
   ];
 
-  home.username = "${host.user.username}";
-  home.homeDirectory = "/home/${host.user.username}";
+  home.username = "${host.config.user.username}";
+  home.homeDirectory = "/home/${host.config.user.username}";
   home.stateVersion = "23.11";
 
   home.file."${config.xdg.userDirs.pictures}/wallpapers" = {
@@ -30,8 +30,8 @@
 
   programs.git = {
     enable = true;
-    userName = host.user.name; # options for home-manager ??
-    userEmail = host.user.email; # options for home-manager ??
+    userName = host.config.user.name; # options for home-manager ??
+    userEmail = host.config.user.email; # options for home-manager ??
   };
 
   # home.pointerCursor = {
@@ -43,7 +43,7 @@
   # };
 
   # needs to be set in the user's home directory
-  dconf.settings = lib.mkIf (host.virtualization.enable) {
+  dconf.settings = lib.mkIf (host.config.virtualization.enable) {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = [ "qemu:///system" ];
       uris = [ "qemu:///system" ];

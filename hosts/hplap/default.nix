@@ -16,8 +16,8 @@ let
   };
 in
 {
+
   imports = [
-    # ./desktop.nix
     ./hardware-configuration.nix
     ../../system/global.nix
     sound

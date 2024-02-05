@@ -1,4 +1,4 @@
-{ pkgs, host, ... }:
+{ conf, ... }:
 
 let
   sound = {
@@ -18,7 +18,7 @@ in
 {
 
   imports = [
-    ./hardware-configuration.nix
+    # (import "${conf.hardwarePath}")
     ../../system/global.nix
     sound
   ];
