@@ -1,7 +1,7 @@
 {config, ...}: {
   age.secrets.gh = {
     file = ../../../secrets/gh.age;
-    path = "${config.xdg.configHome}/gh/hosts.yml";
+    path = "$HOME/.config/gh/hosts.yml"; # TODO: test $HOME
   };
 
   home.file.".config/gh/config.yaml" = {
