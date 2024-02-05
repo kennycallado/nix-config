@@ -1,7 +1,7 @@
 {inputs, ...}:
 
 {
-  host = {
+  config = {
     is_known = true;
 
     name = "hplap";

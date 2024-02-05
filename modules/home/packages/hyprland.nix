@@ -16,7 +16,7 @@
         # "waybar" # already started
       ];
 
-      monitor = lib.mkIf (!host.is_vm) ",highres,auto,1";
+      monitor = lib.mkIf (!host.config.is_vm) ",highres,auto,1";
 
       input = {
         kb_layout = "es";
@@ -95,13 +95,13 @@
         "size 1080 900, ^(steam)$"
       ];
 
-      "$mod" = if (host.is_vm) then "CONTROL_SHIFT" else "SUPER";
+      "$mod" = if (host.config.is_vm) then "CONTROL_SHIFT" else "SUPER";
       bind = [
         # launcher
         "$mod,Space,exec,rofi -show drun"
 
-        "$mod,W,exec,${if (host.user.pref.browser != "") then host.user.pref.browser else "luakit" }"
-        "$mod,T,exec,${if (host.user.pref.terminal != "") then host.user.pref.terminal else "wezterm" }"
+        "$mod,W,exec,${if (host.config.user.pref.browser != "") then host.config.user.pref.browser else "luakit" }"
+        "$mod,T,exec,${if (host.config.user.pref.terminal != "") then host.config.user.pref.terminal else "wezterm" }"
         "$mod SHIFT,S,exec,wallsetter"
 
         "$mod,P,pseudo," # pseudo tiling
