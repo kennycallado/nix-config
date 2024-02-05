@@ -10,7 +10,9 @@
     ./joshuto.nix
     ./pcmanfm.nix
     ./rofi.nix
+    ./swaync.nix
     ./thunar.nix
+    ./waybar.nix
     ./wezterm.nix
   ];
 
