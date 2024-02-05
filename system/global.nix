@@ -74,16 +74,17 @@ in
     users.root.hashedPassword = "${host.config.user.rootHashedPassword}";
   };
 
+  services.journald.extraConfig = ''
+    SystemMaxUse=2G
+  '';
+
   nix = {
-    settings = {
-      auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
-      # TESTING
-      # gc = {
-      #   automatic = true;
-      #   dates = "weekly";
-      #   options = "--delete-older-than 7d";
-      # };
+    settings.auto-optimise-store = true;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
     };
   };
 }
