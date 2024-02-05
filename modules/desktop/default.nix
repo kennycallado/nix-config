@@ -86,6 +86,7 @@ in
     # packages-------------------------------------------------------------------
     environment.systemPackages = with pkgs; [
       # basic packages for all desktops
+      pavucontrol
       pulseaudio # audio
       networkmanagerapplet # network manager applet
       xorg.xf86inputlibinput # ??

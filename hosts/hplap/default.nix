@@ -3,8 +3,6 @@
 let
   sound = {
     sound.enable = true;
-    # hardware.pulseaudio.enable = true;
-    # environment.systemPackages = [ pkgs.pavucontrol ];
     hardware.pulseaudio.enable = false;
     services.pipewire = {
       enable = true;
