@@ -10,7 +10,7 @@
     settings = {
       exec-once = [
         "hyprctl setcursor Bibata-Modern-Ice 24"
-        "wayidle -w timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'"
+        "swayidle -w timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'"
         "swww init"
         "swaync"
         # "waybar" # already started
