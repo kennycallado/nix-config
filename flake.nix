@@ -25,7 +25,6 @@
         is_vm = true; # are we building for a VM?
         desktops = {
           enable = true;
-          # terminal = inputs.nixpkgs.legacyPackages.x86_64-linux.alacritty; # default
           icewm.enable = true;
           icewm.default = false; # set icewm session as default
           hyprland.enable = false;

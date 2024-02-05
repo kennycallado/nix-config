@@ -33,7 +33,7 @@ let
   };
 
   cfg = config.desktops;
-  inherit (lib) mkIf mkEnableOption mkOption;
+  inherit (lib) mkIf mkEnableOption;
 in
 {
   imports = [
@@ -47,10 +47,10 @@ in
 
   options.desktops = {
     enable = mkEnableOption "Desktop";
-    terminal = mkOption {
-      type = lib.types.package;
-      default = pkgs.alacritty;
-    };
+    # terminal = mkOption {
+    #   type = lib.types.package;
+    #   default = pkgs.alacritty;
+    # };
   };
 
   config = mkIf cfg.enable {
@@ -86,7 +86,6 @@ in
     # packages-------------------------------------------------------------------
     environment.systemPackages = with pkgs; [
       # basic packages for all desktops
-      cfg.terminal
       pulseaudio # audio
       networkmanagerapplet # network manager applet
       xorg.xf86inputlibinput # ??
@@ -95,9 +94,8 @@ in
       # polkit_gnome # ??
       imv # image viewer
       mpv
-
       zathura # pdf viewer
-
+      alacritty
       leafpad # text editor
       luakit # web browser
       rofi-wayland # app launcher
