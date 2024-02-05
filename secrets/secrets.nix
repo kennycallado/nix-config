@@ -4,5 +4,7 @@ let
   ];
 in
 {
-  "perro.age".publicKeys = keys;
+  "copilot.age".publicKeys = keys;
+  "docker.age".publicKeys = keys;
+  "gh.age".publicKeys = keys;
 }

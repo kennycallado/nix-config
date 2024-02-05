@@ -2,6 +2,9 @@
   imports = [
     ./alacritty.nix
     ./bash.nix
+    ./copilot.nix
+    ./docker.nix
+    ./gh.nix
     ./hyprland.nix
     ./icewm.nix
     ./joshuto.nix

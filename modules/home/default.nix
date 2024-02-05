@@ -94,4 +94,11 @@
       createDirectories = true;
     };
   };
+
+  # A bit pain to set up, for now I'll just use the default
+  # environment.variables = {
+  #   DOCKER_CONFIG = "${config.home.homeDirectory}/.config/containers/docker";
+  #   DOCKER_CERT_PATH = "${config.home.homeDirectory}/.config/containers/certs";
+  #   REGISTRY_AUTH_FILE = "${config.home.homeDirectory}/.config/containers/auth.json";
+  # };
 }
