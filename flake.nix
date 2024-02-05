@@ -15,19 +15,19 @@
 
   outputs = inputs@{ home-manager, ... }:
     let
-      known=""; # ryzen | hplap
+      known = ""; # ryzen | hplap
 
       config = {
-        hardwarePath = "/etc/nixos/hardware-configuration.nix"; # nixos-generate-config --show-hardware-config
-
         name = "vm";
         arch = "x86_64-linux";
         is_vm = true; # are we building for a VM?
+        hardwarePath = "/etc/nixos/hardware-configuration.nix"; # nixos-generate-config --show-hardware-config
+
         desktops = {
           enable = true;
-          icewm.enable = true;
+          icewm.enable = false;
           icewm.default = false; # set icewm session as default
-          hyprland.enable = false;
+          hyprland.enable = true;
           sway.enable = false;
         };
 
@@ -69,7 +69,7 @@
       host =
         if (is_known)
         then (import ./hosts/${known}/config.nix { inherit inputs; })
-        else {config = config;} ;
+        else { config = config; };
       # -- evaluation --
     in
     {
