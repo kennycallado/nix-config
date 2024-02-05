@@ -100,7 +100,7 @@
       bind = [
         # launcher
         "$mod,Space,exec,rofi -show drun"
-        "$mod SHIFT,pace,exec,rofi -show power-menu -modi power-menu:rofi-power-menu"
+        "$mod SHIFT,Space,exec,rofi -show power-menu -modi power-menu:rofi-power-menu"
 
         "$mod,W,exec,${if (host.config.user.pref.browser != "") then host.config.user.pref.browser else "luakit" }"
         "$mod,T,exec,${if (host.config.user.pref.terminal != "") then host.config.user.pref.terminal else "wezterm" }"
