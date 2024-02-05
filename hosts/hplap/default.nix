@@ -1,4 +1,4 @@
-{ pkgs, host, ... }:
+{ pkgs, host, lib, ... }:
 
 let
   sound = {
@@ -23,16 +23,12 @@ in
     sound
   ];
 
-  # not sure where to put this
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # TESTING
-  # WARNING: change interfaces to match your system
-
-  # specific for the host
-  # networking.interfaces.enp42s0.wakeOnLan.enable = true;
-  # networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
+  networking.interfaces.enp2s0.wakeOnLan.enable = true;
+  networking.interfaces.enp2s0.useDHCP = lib.mkDefault true;
+  networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   console.keyMap = "es";
   console.font = "Lat2-Terminus16";

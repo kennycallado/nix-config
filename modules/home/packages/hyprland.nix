@@ -90,22 +90,24 @@
       };
 
       windowrule = [
-        "float, ^(steam)$"
-        "center, ^(steam)$"
-        "size 1080 900, ^(steam)$"
+        # for now
+        # "float, ^(steam)$"
+        # "center, ^(steam)$"
+        # "size 1080 900, ^(steam)$"
       ];
 
       "$mod" = if (host.config.is_vm) then "CONTROL_SHIFT" else "SUPER";
       bind = [
         # launcher
         "$mod,Space,exec,rofi -show drun"
+        "$mod SHIFT,pace,exec,rofi -show power-menu -modi power-menu:rofi-power-menu"
 
         "$mod,W,exec,${if (host.config.user.pref.browser != "") then host.config.user.pref.browser else "luakit" }"
         "$mod,T,exec,${if (host.config.user.pref.terminal != "") then host.config.user.pref.terminal else "wezterm" }"
         "$mod SHIFT,S,exec,wallsetter"
 
         "$mod,P,pseudo," # pseudo tiling
-        "$mod,Q,killactive,"
+        "$mod SHIFT,Q,killactive,"
 
         # xf86 key
         ",XF86AudioRaiseVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
