@@ -9,8 +9,10 @@
 
     settings = {
       exec-once = [
-        "hyprctl setcursor Bibata-Modern-Ice 24"
+        "systemctl --user import-environment QT_QPA_PLATFORMTHEME WAYLAND_DISPLAY XDG_CURRENT_DESKTOP" # ???
         "swayidle -w timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'"
+        "dbus-update-activation-environment --systemd --all"
+        "hyprctl setcursor Bibata-Modern-Ice 24"
         "swww init"
         "swaync"
         # "waybar" # already started
@@ -102,16 +104,61 @@
         "$mod,Space,exec,rofi -show drun"
         "$mod SHIFT,Space,exec,rofi -show power-menu -modi power-menu:rofi-power-menu"
 
+        # exec
         "$mod,W,exec,${if (host.config.user.pref.browser != "") then host.config.user.pref.browser else "luakit" }"
         "$mod,T,exec,${if (host.config.user.pref.terminal != "") then host.config.user.pref.terminal else "wezterm" }"
         "$mod SHIFT,S,exec,wallsetter"
+        "$mod,S,exec,grim -g \"$(slurp)\""
+        "$mod,M,exec,pcmanfm"
 
-        "$mod,P,pseudo," # pseudo tiling
+        # window layout
         "$mod SHIFT,Q,killactive,"
+        "ALT,TAB,cyclenext,"
+        "ALT,TAB,bringactivetotop,"
+        "$mod,P,pseudo," # pseudo tiling
+        "$mod SHIFT,I,togglesplit," # dwindle
+        "$mod,F,fullscreen,"
+        "$mod SHIFT,F,togglefloating,"
+
+        # Move window
+        "$mod SHIFT,left,movewindow, l"
+        "$mod SHIFT,right,movewindow, r"
+        "$mod SHIFT,up,movewindow, u"
+        "$mod SHIFT,down,movewindow, d"
+        "$mod SHIFT,code:47,centerwindow"
+        "$mod SHIFT,h,movewindow, l"
+        "$mod SHIFT,l,movewindow, r"
+        "$mod SHIFT,k,movewindow, u"
+        "$mod SHIFT,j,movewindow, d"
+
+        # Resize window
+        "$mod CONTROL,left,resizeactive, -40 0"
+        "$mod CONTROL,right,resizeactive, 40 0"
+        "$mod CONTROL,up,resizeactive, 0 -40"
+        "$mod CONTROL,down,resizeactive, 0 40"
+        "$mod CONTROL,h,resizeactive, -40 0"
+        "$mod CONTROL,l,resizeactive, 40 0"
+        "$mod CONTROL,k,resizeactive, 0 -40"
+        "$mod CONTROL,j,resizeactive, 0 40"
+
+        # Move focus
+        "$mod,left,movefocus, l"
+        "$mod,right,movefocus, r"
+        "$mod,up,movefocus, u"
+        "$mod,down,movefocus, d"
+        "$mod,h,movefocus, l"
+        "$mod,l,movefocus, r"
+        "$mod,k,movefocus, u"
+        "$mod,j,movefocus, d"
 
         # xf86 key
         ",XF86AudioRaiseVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
         ",XF86AudioLowerVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ",XF86AudioMute,exec,wpctl set-mute 64 toggle" # 64 sinks 65 mic
+        ",XF86AudioMicMute,exec,pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+        ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
+        ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
+
       ] ++ (
         # workspaces
         # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}

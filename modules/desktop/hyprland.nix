@@ -26,19 +26,17 @@ in
     # todo esto es para hyprland ??
     security.pam.services.swaylock = { };
 
-    # creo que no es necesario ...
-    # xdg.portal.config.common.default = "*";
-    # xdg.portal = {
-    #   enable = true;
-    #   xdgOpenUsePortal = false;
-    #   gtkUsePortal = true;
-    #   extraPortals = with pkgs; [
-    #     #xdg-desktop-portal-hyprland
-    #     #xdg-desktop-portal-gtk
-    #     #xdg-desktop-portal-wlr
-    #   ];
-    #   wlr.enable = true;
-    # };
+    xdg.portal.config.common.default = "*";
+    xdg.portal = {
+      enable = true;
+      xdgOpenUsePortal = false;
+      extraPortals = with pkgs; [
+        # xdg-desktop-portal-hyprland
+        # xdg-desktop-portal-gtk
+        # xdg-desktop-portal-wlr
+      ];
+      wlr.enable = true;
+    };
 
 
     programs = {
