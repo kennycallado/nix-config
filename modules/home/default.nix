@@ -24,6 +24,10 @@
     recursive = true;
   };
 
+  home.file.".config/lvim/config.lua" = {
+    source = ./files/lunarvim/config.lua;
+  };
+
   programs.git = {
     enable = true;
     userName = host.user.name; # options for home-manager ??

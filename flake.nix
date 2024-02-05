@@ -50,6 +50,12 @@
           };
         };
 
+        development = {
+          enable = true;
+          lunarvim.enable = true;
+          rust.enable = true;
+        };
+
         extraPackages = with inputs.nixpkgs.legacyPackages."${host.arch}"; [
           firefox
         ];
@@ -66,11 +72,13 @@
           ./hosts
           ./modules/gaming
           ./modules/desktop
+          ./modules/development
           ./modules/virtualization
 
           {
             gaming = host.gaming;
             desktops = host.desktops;
+            development = host.development;
             virtualization = host.virtualization;
           }
 
