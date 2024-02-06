@@ -15,7 +15,7 @@
         "hyprctl setcursor Bibata-Modern-Ice 24"
         "swww init"
         "swaync"
-        # "waybar" # already started
+        "waybar"
       ];
 
       monitor = lib.mkIf (!host.config.is_vm) ",highres,auto,1";

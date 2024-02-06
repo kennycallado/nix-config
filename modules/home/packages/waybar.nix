@@ -86,7 +86,7 @@
         return-type = "json";
         exec-if = "which swaync-client";
         exec = "swaync-client -swb";
-        on-click = "task-waybar";
+        on-click = "swaync-client -t";
         escape = true;
       };
       "battery" = {
