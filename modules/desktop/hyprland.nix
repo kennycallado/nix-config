@@ -10,17 +10,16 @@ in
   };
 
   config = mkIf cfg.enable {
-
     environment.systemPackages = with pkgs; [
       swaylock
       swayidle
-      wdisplays
+      swaynotificationcenter
       libnotify # icewm use its own
+      wdisplays
+      wl-clipboard
       swww
       grim
       slurp
-      libnotify
-      wl-clipboard
     ];
 
     # todo esto es para hyprland ??
