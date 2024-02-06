@@ -18,6 +18,7 @@ in
 
   # nixpkgs.config.allowUnfree = true; # TODO move to flake cfg?
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "vscode"
     "google-chrome"
     "steam"
     "steam-original"
