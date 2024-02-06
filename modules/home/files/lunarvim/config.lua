@@ -156,6 +156,14 @@ lvim.plugins = {
   --   } }
   --  rest.nvim
   {
+    "dariuscorvus/tree-sitter-surrealdb.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      -- setup step
+      require("tree-sitter-surrealdb").setup()
+    end,
+  },
+  {
     "rest-nvim/rest.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
