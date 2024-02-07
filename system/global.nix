@@ -57,12 +57,18 @@ in
   };
 
   programs.git.enable = true;
+  # programs.ssh.enable = true;
+  # programs.ssh.forwardX11 = true;
 
   services.openssh = {
     enable = true;
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
-    settings.UseDns = true;
+    settings = {
+      UseDns = true;
+      forwardX11 = true;
+      # setXAuthLocation = true;
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
   };
 
   users = {
