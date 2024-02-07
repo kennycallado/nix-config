@@ -60,6 +60,12 @@ in
   # programs.ssh.enable = true;
   # programs.ssh.forwardX11 = true;
 
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
   services.openssh = {
     enable = true;
     settings = {
