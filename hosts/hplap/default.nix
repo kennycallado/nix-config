@@ -1,4 +1,4 @@
-{ pkgs, host, lib, ... }:
+{ lib, ... }:
 
 let
   sound = {
@@ -26,7 +26,7 @@ in
 
   networking.interfaces.enp2s0.wakeOnLan.enable = true;
   networking.interfaces.enp2s0.useDHCP = lib.mkDefault true;
-  networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlo1.useDHCP = lib.mkDefault true; # nm-applet will manage this
 
   console.keyMap = "es";
   console.font = "Lat2-Terminus16";

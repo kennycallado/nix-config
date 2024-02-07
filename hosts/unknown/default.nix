@@ -1,10 +1,8 @@
-{ conf, ... }:
+{ lib, ... }:
 
 let
   sound = {
     sound.enable = true;
-    # hardware.pulseaudio.enable = true;
-    # environment.systemPackages = [ pkgs.pavucontrol ];
     hardware.pulseaudio.enable = false;
     services.pipewire = {
       enable = true;
@@ -23,15 +21,10 @@ in
     sound
   ];
 
-  # not sure where to put this
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # TESTING
-  # WARNING: change interfaces to match your system
-
-  # networking.interfaces.enp42s0.wakeOnLan.enable = true;
-  # networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
+  networking.useDHCP = lib.mkDefault false;
 
   console.keyMap = "es";
   console.font = "Lat2-Terminus16";
