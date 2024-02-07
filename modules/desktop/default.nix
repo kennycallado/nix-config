@@ -52,11 +52,16 @@ in
     ./hyprland.nix
     graphics
     guiFileManager
-    (lib.mkIf host.desktops.rdp == true rdp)
+    rdp
   ];
 
   options.desktops = {
     enable = mkEnableOption "Desktop";
+    # rdp = mkOption {
+    #   type = lib.types.bool;
+    #   default = false;
+    #   description = "Enable RDP";
+    # };
     # terminal = mkOption {
     #   type = lib.types.package;
     #   default = pkgs.alacritty;

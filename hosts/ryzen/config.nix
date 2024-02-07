@@ -13,7 +13,6 @@
       icewm.enable = true;
       icewm.default = false; # set icewm session as default
       hyprland.enable = true;
-      rdp = false;
     };
 
     gaming.enable = true;

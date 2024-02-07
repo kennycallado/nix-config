@@ -72,9 +72,7 @@ in
       createHome = true;
       extraGroups = [ "wheel" "networkmanager" "disk" "video" "audio" ];
       hashedPassword = "${host.config.user.userHashedPassword}";
-      openssh.authorizedKeys.keys = [
-        "${host.config.user.sshPublicKey}"
-      ];
+      openssh.authorizedKeys.keys = [ "${host.config.user.sshPublicKey}" ];
     };
     users.root.hashedPassword = "${host.config.user.rootHashedPassword}";
   };
