@@ -16,6 +16,7 @@
         "swww init"
         "swaync"
         "waybar"
+        "nm-applet"
       ];
 
       monitor = lib.mkIf (!host.config.is_vm) ",highres,auto,1";
