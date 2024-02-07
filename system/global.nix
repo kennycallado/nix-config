@@ -61,6 +61,7 @@ in
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
+    settings.KbdInteractiveAuthentication = false;
     settings.UseDns = true;
   };
 
@@ -71,6 +72,9 @@ in
       createHome = true;
       extraGroups = [ "wheel" "networkmanager" "disk" "video" "audio" ];
       hashedPassword = "${host.config.user.userHashedPassword}";
+      openssh.authorizedKeys.keys = [
+        "${host.config.user.sshPublicKey}"
+      ];
     };
     users.root.hashedPassword = "${host.config.user.rootHashedPassword}";
   };
