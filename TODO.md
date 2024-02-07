@@ -3,6 +3,7 @@
 
 - [X] memory: me ha parecido que al poner polykit o algo así... la memoria ha subido mucho
 
+- [ ] develpment: option for **unstable** vscode, at least until stable >1.84
 - [X] waybar: waybar no está mostrando swaync
 - [ ] waybar: better styles
 - [ ] icewm: no way to change the theme
