@@ -2,26 +2,26 @@
 
 {
   config = {
-    is_known = true;
-
     name = "ryzen"; # ryzen | hplap
     arch = "x86_64-linux";
-    is_vm = true; # are we building for a VM?
+    is_vm = false; # are we building for a VM?
+    is_known = true;
+
     desktops = {
       enable = true;
-      # terminal = inputs.nixpkgs.legacyPackages.x86_64-linux.alacritty; # default
-      icewm.enable = true;
-      icewm.default = false;
-      hyprland.enable = true;
       sway.enable = false;
+      icewm.enable = true;
+      icewm.default = false; # set icewm session as default
+      hyprland.enable = true;
+      rdp = false;
     };
 
-    gaming.enable = false;
+    gaming.enable = true;
 
     virtualization = {
-      enable = false;
+      enable = true;
       containers = {
-        enable = false;
+        enable = true;
         backend = "podman"; # podman | docker
       };
     };
@@ -32,16 +32,18 @@
       username = "kenny";
       userHashedPassword = "$y$j9T$K.6mI6Iv5sfsaGlxYcSA61$TYINtbstV0sqY2DusfTGIaiTd.iKDmJ/QV.IE0Ubbf9"; # mkpasswd -m help
       rootHashedPassword = "$y$j9T$DH2RAr03g1LijzG.F6u9Y.$.3juBtQvbWBWpZTI6jpVcF04TXdXqOkbxhr/Ya.9bcA"; # mkpasswd -m help
+      sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICg4qvvrvP7BSMLUqPNz2+syXHF1+7qGutKBA9ndPBB+ kennycallado@hotmail.com";
+
       pref = {
         browser = "firefox";
-        terminal = "alacritty";
+        terminal = "wezterm";
       };
     };
 
     development = {
-      enable = false;
-      lunarvim.enable = false;
-      rust.enable = false;
+      enable = true;
+      lunarvim.enable = true;
+      rust.enable = true;
     };
 
     extraPackages = with inputs.nixpkgs.legacyPackages.x86_64-linux; [

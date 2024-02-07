@@ -1,5 +1,13 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, host, ... }:
 let
+  rdp = {
+    services.xrdp = {
+      defaultWindowManager = "${pkgs.icewm}/bin/icewm-session";
+      openFirewall = true;
+    };
+    networking.firewall.allowedTCPPorts = [ 3389 ];
+  };
+
   graphics = {
     services.xserver = {
       enable = true;
@@ -15,6 +23,7 @@ let
       displayManager.gdm = {
         enable = true;
         wayland = true;
+        autoSuspend = lib.mkIf (host.desktops.rdp == true) false; 
       };
 
       # displayManager.startx = {
@@ -43,6 +52,7 @@ in
     ./hyprland.nix
     graphics
     guiFileManager
+    (lib.mkIf host.desktops.rdp == true rdp)
   ];
 
   options.desktops = {
