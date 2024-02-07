@@ -4,6 +4,26 @@
 
 [list](./TODO.md)
 
+## NOTA:
+
+rdp needs icewm, make dependents
+
+---
+
+live-media [link](https://hoverbear.org/blog/nix-flake-live-media/)
+
+---
+
+networking.networkmanager.enable = true;
+
+And your other network configuration:
+
+  networking.useDHCP = false;
+  networking.interfaces.enp1s0.useDHCP = true;
+  networking.interfaces.wlp2s0.useDHCP = true;
+
+are two different network management systems and generally should not be used together.
+
 ## compile in vm
 
 ``` bash
