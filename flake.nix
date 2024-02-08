@@ -90,9 +90,9 @@
       # -- evaluation --
       is_known = builtins.pathExists ./hosts/${known}/config.nix;
       host =
-        if (is_known)
-        then (import ./hosts/${known}/config.nix { inherit inputs; })
-        else { config = config; };
+        if (!is_known)
+        then { config = config; }
+        else (import ./hosts/${known}/config.nix { inherit inputs; });
       # -- evaluation --
     in
     {
