@@ -1,13 +1,5 @@
 { pkgs, config, lib, host, ... }:
 let
-  rdp = {
-    services.xrdp = {
-      defaultWindowManager = "${pkgs.icewm}/bin/icewm-session";
-      openFirewall = true;
-    };
-    networking.firewall.allowedTCPPorts = [ 3389 ];
-  };
-
   graphics = {
     services.xserver = {
       enable = true;
@@ -23,7 +15,7 @@ let
       displayManager.gdm = {
         enable = true;
         wayland = true;
-        autoSuspend = lib.mkIf (host.desktops.rdp == true) false; 
+        autoSuspend = false; # temp
       };
 
       # displayManager.startx = {
@@ -50,30 +42,22 @@ in
     ./icewm.nix
     ./wayland.nix
     ./hyprland.nix
+    ./xrdp.nix
     graphics
     guiFileManager
-    rdp
   ];
 
   options.desktops = {
     enable = mkEnableOption "Desktop";
-    # rdp = mkOption {
-    #   type = lib.types.bool;
-    #   default = false;
-    #   description = "Enable RDP";
-    # };
-    # terminal = mkOption {
-    #   type = lib.types.package;
-    #   default = pkgs.alacritty;
-    # };
   };
 
   config = mkIf cfg.enable {
 
     # security-------------------------------------------------------------------
-
     # security.rtkit.enable = true;
     # security.polkit.enable = true;
+
+    # services-------------------------------------------------------------------
     # systemd = {
     #   user.services.polkit-gnome-authentication-agent-1 = {
     #     description = "polkit-gnome-authentication-agent-1";
@@ -98,6 +82,14 @@ in
       extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl ];
     };
 
+    # fonts----------------------------------------------------------------------
+    fonts.packages = with pkgs; [
+      noto-fonts
+      noto-fonts-emoji
+      ocr-a
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    ];
+
     # packages-------------------------------------------------------------------
     environment.systemPackages = with pkgs; [
       # basic packages for all desktops
@@ -117,14 +109,6 @@ in
       rofi-wayland # app launcher
       rofi-power-menu
       yad # better zenity
-    ];
-
-    # fonts----------------------------------------------------------------------
-    fonts.packages = with pkgs; [
-      noto-fonts
-      noto-fonts-emoji
-      ocr-a
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
   };
 }
