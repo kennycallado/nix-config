@@ -31,7 +31,7 @@ in
       enable = true;
       description = "Bore tunnel for sshd";
 
-      after = [ "network.target" ];
+      after = [ "network.target" "sshd.service" ];
       wantedBy = [ "multi-user.target" ];
       unitConfig = { Type = "Simple"; };
 
