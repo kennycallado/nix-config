@@ -39,7 +39,7 @@ in
         ExecStart = "${pkgs.bore-cli}/bin/bore local 22 --port ${builtins.toString cfg.tunnel.port} --to ${cfg.tunnel.server} --secret ${cfg.tunnel.pass}";
         Restart = "always";
         RestartSec = "60";
-        KillSignal = "SIGINT";
+        KillSignal = "SIGTERM";
         StandardOutput = "journal";
         StandardError = "journal";
         # StandardOutput = "file:/home/kenny/tunnel-sshd.log"; # temp
