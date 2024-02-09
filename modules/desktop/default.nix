@@ -15,7 +15,7 @@ let
       displayManager.gdm = {
         enable = true;
         wayland = true;
-        autoSuspend = false; # temp
+        autoSuspend = host.config.desktops.xrdp.enable;
       };
 
       # displayManager.startx = {
