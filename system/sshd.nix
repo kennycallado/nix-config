@@ -9,8 +9,8 @@ in
     enable = mkEnableOption "Enable OpenSSH server.";
     tunnel = {
       enable = mkEnableOption "Enable bore tunnel for ssh server.";
-      server = mkOption { type = lib.types.string; };
-      pass = mkOption { type = lib.types.string; };
+      server = mkOption { type = lib.types.str; };
+      pass = mkOption { type = lib.types.str; };
       port = mkOption { type = lib.types.int; };
     };
   };
