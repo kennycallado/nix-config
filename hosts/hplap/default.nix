@@ -28,6 +28,10 @@ in
   networking.interfaces.enp2s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true; # nm-applet will manage this
 
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  # prefer not poweronboot, but i'll try
+
   console.keyMap = "es";
   console.font = "Lat2-Terminus16";
 

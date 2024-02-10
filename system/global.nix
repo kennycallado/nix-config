@@ -1,4 +1,4 @@
-{ pkgs, inputs, host, lib, ... }:
+{ pkgs, inputs, host, lib, config, ... }:
 let
   agenix = {
     imports = [ inputs.agenix.nixosModules.age ];
@@ -13,6 +13,7 @@ in
   ];
 
   services.qemuGuest = lib.mkIf (host.config.is_vm) { enable = true; };
+  services.blueman.enable = config.hardware.bluetooth.enable;
 
   # TODO move to flake?
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
