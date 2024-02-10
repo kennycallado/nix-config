@@ -42,10 +42,10 @@
           };
         };
 
-        system.sshd = {
-          enable = true;
+        sshd = {
+          enable = false;
           tunnel = {
-            enable = true;
+            enable = false;
             server = "";
             pass = "";
             port = 12;
@@ -110,15 +110,15 @@
           ./modules/gaming
           ./modules/desktop
           ./modules/development
+          ./modules/sshd
           ./modules/virtualization
-          ./system/sshd.nix
 
           {
             gaming = host.config.gaming;
             desktops = host.config.desktops;
             development = host.config.development;
             virtualization = host.config.virtualization;
-            system.sshd = host.config.system.sshd;
+            sshd = host.config.sshd;
           }
 
           home-manager.nixosModules.home-manager

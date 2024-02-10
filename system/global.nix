@@ -8,7 +8,7 @@ in
 {
 
   imports = [
-    ./maintenance.nix
+    ./extra/maintenance.nix
     agenix
   ];
 

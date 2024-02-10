@@ -1,11 +1,11 @@
 { lib, config, pkgs, ... }:
 let
-  cfg = config.system.sshd;
+  cfg = config.sshd;
   inherit (lib) mkIf mkEnableOption mkOption;
 in
 {
 
-  options.system.sshd = {
+  options.sshd = {
     enable = mkEnableOption "Enable OpenSSH server.";
     tunnel = {
       enable = mkEnableOption "Enable bore tunnel for ssh server.";

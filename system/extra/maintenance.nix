@@ -1,4 +1,4 @@
-{ pkgs, inputs, host, lib, ... }:
+{...}:
 
 {
   services.journald.extraConfig = ''
