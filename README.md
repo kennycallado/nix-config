@@ -85,11 +85,17 @@ More options in [link](https://gist.github.com/ErebusBat/9744f25f3735c1e0491f6ef
 
 **Dependencies**:
 - git
+- wget
 - neovim
 - bitwarden-cli
 
 ``` bash
-bw list items --search <id> | jq '.[].notes' | xargs -I][ echo -e ][ > id_ed25519
+wget https://github.com/kennycallado/nix-config/blob/main/README.md
+```
+
+``` bash
+bw list items --search <id> | jq '.[].notes' | sed 's/\"//g'
+bw list items --search <id> | jq '.[].fields[].value' | sed 's/"//g' | xargs -I][ echo -e ][ > id_ed25519 && chmod 400 id_ed25519
 ```
 
 ``` bash
