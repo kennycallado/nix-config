@@ -78,3 +78,35 @@ config.font = wezterm.font({
 ```
 
 More options in [link](https://gist.github.com/ErebusBat/9744f25f3735c1e0491f6ef7f3a9ddc3).
+
+## INSTALLATION
+
+### pre
+
+**Dependencies**:
+- git
+- neovim
+- bitwarden-cli
+
+``` bash
+bw list items --search <id> | jq '.[].notes' | xargs -I][ echo -e ][ > id_ed25519
+```
+
+``` bash
+mkdir ~/dev && git clone git@github.com:kennycallado/nix-config.git ~/dev/nix-config
+```
+
+### install
+
+``` bash
+cd ~/dev/nix-config/ &&
+nixos-rebuild switch --flake .#<name>
+```
+
+### post
+
+**clean up**:
+- reboot
+- xc
+- xcb
+
