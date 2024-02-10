@@ -4,19 +4,19 @@ let
     imports = [ inputs.agenix.nixosModules.age ];
     environment.systemPackages = [ inputs.agenix.packages.${pkgs.system}.agenix ];
   };
-in
-{
+  inherit (lib) mkIf getName;
+in {
 
   imports = [
     ./extra/maintenance.nix
     agenix
   ];
 
-  services.qemuGuest = lib.mkIf (host.config.is_vm) { enable = true; };
+  services.qemuGuest = mkIf (host.config.is_vm) { enable = true; };
   services.blueman.enable = config.hardware.bluetooth.enable;
 
   # TODO move to flake?
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (getName pkg) [
     "vscode"
     "google-chrome"
     "steam-original"
@@ -36,10 +36,11 @@ in
       isNormalUser = true;
       createHome = true;
       extraGroups = [ "wheel" "networkmanager" "disk" "video" "audio" ];
-      hashedPassword = "${host.config.user.userHashedPassword}";
-      openssh.authorizedKeys.keys = [ "${host.config.user.sshPublicKey}" ];
+      password = mkIf (!host.config.is_known) "${host.config.user.password}";
+      hashedPassword = mkIf (host.config.is_known) "${host.config.user.userHashedPassword}";
+      openssh.authorizedKeys.keys = mkIf (host.config.is_known) [ "${host.config.user.sshPublicKey}" ];
     };
-    users.root.hashedPassword = "${host.config.user.rootHashedPassword}";
+    users.root.hashedPassword = mkIf (host.config.is_known) "${host.config.user.rootHashedPassword}";
   };
 
   programs.git.enable = true;

@@ -1,4 +1,4 @@
-{ host, is_known, ... }: {
+{ host, ... }: {
   # imports = [ ./${host.config.name} ];
-  imports = [ ./${if (is_known) then host.config.name else "unknown" } ];
+  imports = [ ./${if (host.config.is_known) then host.config.name else "unknown" } ];
 }

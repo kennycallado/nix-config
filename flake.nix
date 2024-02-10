@@ -20,8 +20,8 @@
       config = {
         name = "vm";
         arch = "x86_64-linux";
-        is_vm = true; # are we building for a VM?
-        # hardwarePath = "/etc/nixos/hardware-configuration.nix"; # nixos-generate-config --show-hardware-config
+        is_vm = true;
+        is_known = builtins.pathExists ./hosts/${known}/config.nix; # check if host is known
 
         desktops = {
           enable = true;
@@ -66,9 +66,7 @@
           name = "Kenny Callado";
           email = "kennycallado@hotmail.com";
           username = "kenny";
-          sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICg4qvvrvP7BSMLUqPNz2+syXHF1+7qGutKBA9ndPBB+ kennycallado@hotmail.com";
-          userHashedPassword = "$y$j9T$K.6mI6Iv5sfsaGlxYcSA61$TYINtbstV0sqY2DusfTGIaiTd.iKDmJ/QV.IE0Ubbf9"; # mkpasswd -m help
-          rootHashedPassword = "$y$j9T$DH2RAr03g1LijzG.F6u9Y.$.3juBtQvbWBWpZTI6jpVcF04TXdXqOkbxhr/Ya.9bcA"; # mkpasswd -m help
+          password = "kenny"; # be aware; used for unknown hosts
 
           pref = {
             browser = "luakit";
@@ -88,20 +86,18 @@
       };
 
       # -- evaluation --
-      is_known = builtins.pathExists ./hosts/${known}/config.nix;
       host =
-        if (!is_known)
-        then { config = config; }
+        if (!config.is_known)
+        then ({ config = config; })
         else (import ./hosts/${known}/config.nix { inherit inputs; });
       # -- evaluation --
     in
     {
       # nixosConfigurations."${host.config.name}" = inputs.nixpkgs.lib.nixosSystem {
-      nixosConfigurations."${if (is_known) then host.config.name else "unknown" }" = inputs.nixpkgs.lib.nixosSystem {
+      nixosConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = inputs.nixpkgs.lib.nixosSystem {
         system = host.config.arch;
         specialArgs = {
           inherit host;
-          inherit is_known;
           inputs = inputs;
         };
 
