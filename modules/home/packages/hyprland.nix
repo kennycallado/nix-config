@@ -99,7 +99,7 @@
         # "size 1080 900, ^(steam)$"
       ];
 
-      "$mod" = if (host.config.is_vm) then "CONTROL_SHIFT" else "SUPER";
+      "$mod" = if (host.config.is_vm) then "Mod5" else "SUPER";
       bind = [
         # launcher
         "$mod,Space,exec,rofi -show drun"
@@ -112,51 +112,53 @@
         "$mod,S,exec,grim -g \"$(slurp)\""
         "$mod,M,exec,pcmanfm"
 
-        # window layout
-        "$mod SHIFT,Q,killactive,"
+        # select window
         "ALT,TAB,cyclenext,"
         "ALT,TAB,bringactivetotop,"
+
+        # Move focus
+        # "$mod,left,movefocus, l"
+        # "$mod,right,movefocus, r"
+        # "$mod,up,movefocus, u"
+        # "$mod,down,movefocus, d"
+        "$mod,k,movefocus, u"
+        "$mod,j,movefocus, d"
+        "$mod,h,movefocus, l"
+        "$mod,l,movefocus, r"
+
+        # window layout
+        "$mod SHIFT,Q,killactive,"
         "$mod,P,pseudo," # pseudo tiling
         "$mod SHIFT,I,togglesplit," # dwindle
         "$mod,F,fullscreen,"
         "$mod SHIFT,F,togglefloating,"
 
         # Move window
-        "$mod SHIFT,left,movewindow, l"
-        "$mod SHIFT,right,movewindow, r"
-        "$mod SHIFT,up,movewindow, u"
-        "$mod SHIFT,down,movewindow, d"
-        "$mod SHIFT,code:47,centerwindow"
-        "$mod SHIFT,h,movewindow, l"
-        "$mod SHIFT,l,movewindow, r"
+        # "$mod SHIFT,left,movewindow, l"
+        # "$mod SHIFT,right,movewindow, r"
+        # "$mod SHIFT,up,movewindow, u"
+        # "$mod SHIFT,down,movewindow, d"
         "$mod SHIFT,k,movewindow, u"
         "$mod SHIFT,j,movewindow, d"
+        "$mod SHIFT,h,movewindow, l"
+        "$mod SHIFT,l,movewindow, r"
+        "$mod SHIFT,code:47,centerwindow" # ñ
 
         # Resize window
-        "$mod CONTROL,left,resizeactive, -40 0"
-        "$mod CONTROL,right,resizeactive, 40 0"
-        "$mod CONTROL,up,resizeactive, 0 -40"
-        "$mod CONTROL,down,resizeactive, 0 40"
-        "$mod CONTROL,h,resizeactive, -40 0"
-        "$mod CONTROL,l,resizeactive, 40 0"
+        # "$mod CONTROL,left,resizeactive, -40 0"
+        # "$mod CONTROL,right,resizeactive, 40 0"
+        # "$mod CONTROL,up,resizeactive, 0 -40"
+        # "$mod CONTROL,down,resizeactive, 0 40"
         "$mod CONTROL,k,resizeactive, 0 -40"
         "$mod CONTROL,j,resizeactive, 0 40"
-
-        # Move focus
-        "$mod,left,movefocus, l"
-        "$mod,right,movefocus, r"
-        "$mod,up,movefocus, u"
-        "$mod,down,movefocus, d"
-        "$mod,h,movefocus, l"
-        "$mod,l,movefocus, r"
-        "$mod,k,movefocus, u"
-        "$mod,j,movefocus, d"
+        "$mod CONTROL,h,resizeactive, -40 0"
+        "$mod CONTROL,l,resizeactive, 40 0"
 
         # xf86 key
         ",XF86AudioRaiseVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
         ",XF86AudioLowerVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ",XF86AudioMute,exec,wpctl set-mute 64 toggle" # 64 sinks 65 mic
         ",XF86AudioMicMute,exec,pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+        ",XF86AudioMute,exec,wpctl set-mute 64 toggle" # 64 sinks 65 mic
         ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
         ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
 

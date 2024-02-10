@@ -20,7 +20,7 @@
   home.stateVersion = "23.11";
 
   home.file."${config.xdg.userDirs.pictures}/wallpapers" = {
-    source = ../home/media/wallpapers;
+    source = ./media/wallpapers;
     recursive = true;
   };
 
