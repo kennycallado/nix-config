@@ -5,7 +5,8 @@ let
     environment.systemPackages = [ inputs.agenix.packages.${pkgs.system}.agenix ];
   };
   inherit (lib) mkIf getName;
-in {
+in
+{
 
   imports = [
     ./extra/maintenance.nix

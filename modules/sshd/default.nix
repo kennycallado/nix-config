@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 let
   cfg = config.sshd;
-  inherit (lib) mkIf mkEnableOption mkOption;
+  inherit (lib) mkIf mkEnableOption mkOption types;
 in
 {
 
@@ -9,9 +9,9 @@ in
     enable = mkEnableOption "Enable OpenSSH server.";
     tunnel = {
       enable = mkEnableOption "Enable bore tunnel for ssh server.";
-      server = mkOption { type = lib.types.str; };
-      pass = mkOption { type = lib.types.str; };
-      port = mkOption { type = lib.types.int; };
+      server = mkOption { type = types.str; };
+      pass = mkOption { type = types.str; };
+      port = mkOption { type = types.int; };
     };
   };
 
