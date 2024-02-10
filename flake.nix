@@ -15,13 +15,11 @@
 
   outputs = inputs@{ home-manager, ... }:
     let
-      known = ""; # ryzen | hplap
-
-      config = {
-        name = "vm";
+      config = rec {
+        name = "vm"; # knowns: hplap | ryzen
         arch = "x86_64-linux";
         is_vm = true;
-        is_known = builtins.pathExists ./hosts/${known}/config.nix; # check if host is known
+        is_known = builtins.pathExists ./hosts/${name}/config.nix; # check if host is known
 
         desktops = {
           enable = true;
@@ -89,11 +87,10 @@
       host =
         if (!config.is_known)
         then ({ config = config; })
-        else (import ./hosts/${known}/config.nix { inherit inputs; });
+        else (import ./hosts/${host.config.name}/config.nix { inherit inputs; });
       # -- evaluation --
     in
     {
-      # nixosConfigurations."${host.config.name}" = inputs.nixpkgs.lib.nixosSystem {
       nixosConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = inputs.nixpkgs.lib.nixosSystem {
         system = host.config.arch;
         specialArgs = {

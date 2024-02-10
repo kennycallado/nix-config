@@ -10,7 +10,7 @@
     desktops = {
       enable = true;
       sway.enable = false;
-      icewm.enable = true;
+      icewm.enable = false;
       icewm.default = false; # set icewm session as default
       hyprland.enable = true;
 
