@@ -112,6 +112,9 @@
         "$mod,S,exec,grim -g \"$(slurp)\""
         "$mod,M,exec,pcmanfm"
 
+        # toggle waybar
+        "$mod,B,exec,pkill -SIGUSR1 waybar"
+
         # select window
         "ALT,TAB,cyclenext,"
         "ALT,TAB,bringactivetotop,"
