@@ -87,7 +87,7 @@
       host =
         if (!config.is_known)
         then ({ config = config; })
-        else (import ./hosts/${host.config.name}/config.nix { inherit inputs; });
+        else (import ./hosts/${config.name}/config.nix { inherit inputs; });
       # -- evaluation --
     in
     {
