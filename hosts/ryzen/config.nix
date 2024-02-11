@@ -24,7 +24,7 @@
       };
     };
 
-    system.sshd = {
+    sshd = {
       enable = false;
       tunnel = {
         enable = false;
