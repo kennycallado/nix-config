@@ -45,7 +45,7 @@ nixos-rebuild switch --flake .#<name>
 
 ## Some packages specifications:
 
-### vscodeo
+### vscode
 
 install from terminal latest version
 
