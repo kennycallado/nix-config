@@ -29,7 +29,7 @@ in
   networking.useNetworkd = true;
   networking.hostName = "${host.config.name}";
   networking.networkmanager.enable = true;
-  # networking.firewall.allowedTCPPorts = [ 8888 ];
+  networking.firewall.allowedTCPPorts = [ 8000 ];
 
   users = {
     mutableUsers = false; # maybe true?
