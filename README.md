@@ -116,3 +116,10 @@ nixos-rebuild switch --flake .#<name>
 - xc
 - xcb
 
+### Others:
+
+``` bash
+sudo cryptsetup open /dev/sdb2 external --type luks
+
+sudo mount /dev/mapper/external /mnt/
+```

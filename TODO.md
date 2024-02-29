@@ -1,6 +1,9 @@
 
 ## TODO
 
+- [ ] firefox: [link](https://code.balsoft.ru/balsoft/nixos-config/src/branch/master/profiles/applications/firefox.nix)
+  - take a look of the rest
+   
 - [X] memory: me ha parecido que al poner polykit o algo así... la memoria ha subido mucho
 
 - [X] develpment: option for **unstable** vscode, at least until stable >1.84

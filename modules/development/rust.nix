@@ -10,9 +10,12 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
+      openssl
       gcc
       cargo
+      cargo-cross
       rustc
+      rustup # ???
       pkg-config
       rust-analyzer
     ];

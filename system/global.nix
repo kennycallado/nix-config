@@ -16,7 +16,6 @@ in
   services.qemuGuest = mkIf (host.config.is_vm) { enable = true; };
   services.blueman.enable = config.hardware.bluetooth.enable;
 
-  # TODO move to flake?
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (getName pkg) [
     "vscode"
     "google-chrome"
@@ -25,7 +24,6 @@ in
     "steam"
   ];
 
-  # systemd.services.NetworkManager-wait-online.enable = false; # TODO where?
   networking.useNetworkd = true;
   networking.hostName = "${host.config.name}";
   networking.networkmanager.enable = true;
@@ -42,6 +40,11 @@ in
       openssh.authorizedKeys.keys = mkIf (host.config.is_known) [ "${host.config.user.sshPublicKey}" ];
     };
     users.root.hashedPassword = mkIf (host.config.is_known) "${host.config.user.rootHashedPassword}";
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
   };
 
   programs.git.enable = true;
@@ -63,13 +66,12 @@ in
       p7zip
       unzip
       unar
-      neovim
       lm_sensors
+      cryptsetup
     ] ++ host.config.extraPackages;
   };
 
   environment.variables = {
-    EDITOR = "nvim";
     PAGER = "less";
   };
 }
