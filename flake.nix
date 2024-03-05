@@ -61,7 +61,7 @@
         };
 
         user = {
-          name = "Kenny Callado";
+          name = "kennycallado";
           email = "kennycallado@hotmail.com";
           username = "kenny";
           password = "kenny"; # be aware; used for unknown hosts
