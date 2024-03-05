@@ -13,9 +13,7 @@ in
       openssl
       gcc
       cargo
-      cargo-cross
       rustc
-      rustup # ???
       pkg-config
       rust-analyzer
     ];
