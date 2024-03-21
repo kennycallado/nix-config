@@ -67,6 +67,7 @@
 
     extraPackages = with inputs.nixpkgs.legacyPackages.x86_64-linux; [
       firefox
+      wl-screenrec
     ];
   };
 }
