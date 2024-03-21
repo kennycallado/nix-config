@@ -224,6 +224,17 @@ end
 lvim.builtin.cmp.formatting.source_names["copilot"] = "(Cop)"
 table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
 
+lvim.autocommands = {
+  {
+    { "BufEnter", "BufWinEnter" },
+    {
+      group = "lvim_user",
+      pattern = "*.php",
+      command = "set shiftwidth=4 tabstop=4",
+    },
+  },
+}
+
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "zsh",
