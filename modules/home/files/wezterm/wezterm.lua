@@ -8,7 +8,7 @@ local config = {}
 if wezterm.config_builder then config = wezterm.config_builder() end
 
 -- QUICK FIX
-config.enable_wayland = false
+-- config.enable_wayland = false -- I need it to be true for wl-screenrec
 
 -- General settings
 config.scrollback_lines = 3000
@@ -212,22 +212,15 @@ wezterm.on("update-status", function(window, pane)
   end
 
   -- Current Foreground Process Name
+  -- @param s: String
   local cmd_basename = function(s)
-    -- Nothing a little regex can't fix
     return string.gsub(s, "(.*[/\\])(.*)", "%2")
   end
 
   -- Current working directory
-  local cwd_basename = function(s, cmd)
-    -- local blah = "";
-    -- if cmd == "joshuto" then
-    --   -- Don't know why I have read that the route should also introduce the hostname
-    --   blah = string.gsub(s.path, "(.*[/\\])(.*[/\\])(.*)", "%3")
-    -- else
-    --   blah = string.gsub(s.path, "(.*[/\\])(.*[/\\])(.*)", "%2")
-    -- end
-    -- return blah
-    return string.gsub(s, "(.*:[/\\])(.*[/\\])(.*)", "%3")
+  -- @param s: Url
+  local cwd_basename = function(s)
+    return string.gsub(s.path, "(.*[/\\])(.*)", "%2")
   end
 
   -- Current command
@@ -236,7 +229,7 @@ wezterm.on("update-status", function(window, pane)
 
   -- Current directory
   local cwd = pane:get_current_working_dir()
-  cwd = cwd and cwd_basename(cwd, cmd) or ""
+  cwd = cwd and cwd_basename(cwd) or ""
 
   -- Time
   local time = wezterm.strftime("%H:%M")

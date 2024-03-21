@@ -11,6 +11,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "";
     };
+    wezterm = {
+      url = "github:wez/wezterm?dir=nix";
+    };
   };
 
   outputs = inputs@{ home-manager, ... }:

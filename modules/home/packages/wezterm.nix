@@ -1,7 +1,17 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ wezterm ];
+  # compile from source
+  programs.wezterm = {
+      enable = true;
+      package = inputs.wezterm.packages.${pkgs.system}.default; # from source
+      # package = pkgs.wezterm; # from repo
+
+      # extraConfig = '' '';
+  };
+
+  # installed via unstable
+  # nix-env -f channel:nixpkgs-unstable -iA wezterm
 
   home.file.".config/wezterm" = {
     source = ../files/wezterm;
