@@ -11,14 +11,16 @@
     (import ./wezterm.nix { inherit inputs pkgs is_nixos; })
   ]
   ++ (if is_nixos then [
-      ./hyprland.nix
-      ./icewm.nix
-      ./pcmanfm.nix
       ./rofi.nix
+      ./icewm.nix
       ./swaync.nix
       ./thunar.nix
       ./waybar.nix
-    ] else []);
+      ./pcmanfm.nix
+      ./hyprland.nix
+    ] else [
+      ./podman.nix
+    ]);
 
   programs.starship = {
     enable = true;
@@ -27,14 +29,14 @@
 
   home.packages = with pkgs; [
     # ?? should be in global.nix ??
-    # bottom # btm
+    fd
     fzf
     bat
-    ripgrep
-    fd
-    dufs # droopy replacement
     dua
     lsd
+    dufs # droopy replacement
+    # bottom # btm
+    ripgrep
     cmatrix
   ];
 }

@@ -26,13 +26,10 @@ in
     # pkgs.papirus-icon-theme
     # (import ./scripts/wallsetter.nix { inherit pkgs config; })
     # (import ./scripts/wez-ssh.nix { inherit pkgs; })
-  ]
-  ++ (if !is_nixos then
-    [
-      xclip
-      neovim
-      lunarvim
-    ] else [
+  ] ++ (
+    if !is_nixos then
+      host.config.extraPackages
+    else [
       (import ./scripts/wallsetter.nix { inherit pkgs config; })
       (import ./scripts/wez-ssh.nix { inherit pkgs; })
     ]);

@@ -1,7 +1,7 @@
 { inputs, ... }:
 
 {
-  config = {
+  config = rec {
     name = "steamdeck";
     arch = "x86_64-linux";
     is_vm = false; # are we building for a VM?
@@ -65,7 +65,12 @@
       rust.enable = false;
     };
 
-    extraPackages = with inputs.nixpkgs.legacyPackages.x86_64-linux; [
+    extraPackages = with inputs.nixpkgs.legacyPackages.${arch}; [
+      xclip
+      podman
+      podman-compose
+      neovim
+      lunarvim
       firefox
     ];
   };
