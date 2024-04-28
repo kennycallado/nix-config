@@ -1,20 +1,24 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, is_nixos, ... }:
+
+{
   imports = [
     ./alacritty.nix
     ./bash.nix
     ./copilot.nix
     ./docker.nix
     ./gh.nix
-    ./hyprland.nix
-    ./icewm.nix
     ./joshuto.nix
-    ./pcmanfm.nix
-    ./rofi.nix
-    ./swaync.nix
-    ./thunar.nix
-    ./waybar.nix
-    ./wezterm.nix
-  ];
+    (import ./wezterm.nix { inherit inputs pkgs is_nixos; })
+  ]
+  ++ (if is_nixos then [
+      ./hyprland.nix
+      ./icewm.nix
+      ./pcmanfm.nix
+      ./rofi.nix
+      ./swaync.nix
+      ./thunar.nix
+      ./waybar.nix
+    ] else []);
 
   programs.starship = {
     enable = true;
@@ -23,7 +27,7 @@
 
   home.packages = with pkgs; [
     # ?? should be in global.nix ??
-    bottom # btm
+    # bottom # btm
     fzf
     bat
     ripgrep

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     hyprland.url = "github:hyprwm/Hyprland?ref=v0.34.0";
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -11,15 +12,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "";
     };
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-    };
   };
 
   outputs = inputs@{ home-manager, nixpkgs, ... }:
     let
       config = rec {
-        name = "vm"; # knowns: hplap | ryzen
+        name = "vm"; # knowns: hplap | ryzen | steamdeck
         arch = "x86_64-linux";
         is_vm = true;
         is_known = builtins.pathExists ./hosts/${name}/config.nix; # check if host is known
@@ -92,16 +90,19 @@
         then ({ config = config; })
         else (import ./hosts/${config.name}/config.nix { inherit inputs; });
       # -- evaluation --
+
+      # -- for home-manager switch
+      pkgs = nixpkgs.legacyPackages.${config.arch};
     in
     {
       nixosConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = inputs.nixpkgs.lib.nixosSystem {
         system = host.config.arch;
-        specialArgs = {
-          inherit host;
-          inputs = inputs;
-        };
+        specialArgs = { inherit host inputs; };
 
-        modules = [
+        modules =
+        let
+          is_nixos = false;
+        in [
           ./hosts
           ./modules/gaming
           ./modules/desktop
@@ -125,7 +126,7 @@
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users."${host.config.user.username}" = import ./modules/home;
+            home-manager.users."${host.config.user.username}" = import ./modules/home { inherit is_nixos; };
           }
         ];
       };
@@ -133,9 +134,13 @@
       homeConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
-        modules = [
-          (import ./modules/home { inherit inputs pkgs host config; })
+        modules =
+        let
+          is_nixos = false;
+        in [
+          inputs.agenix.homeManagerModules.age
           { programs.home-manager.enable = true; }
+          (import ./modules/home { inherit inputs pkgs host is_nixos; })
         ];
       };
 

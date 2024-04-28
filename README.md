@@ -10,7 +10,7 @@
 [options](https://mynixos.com/home-manager/option)
 
 ``` bash
-home-manager --impure --flake .
+home-manager switch -b backup --impure --flake .#steamdeck
 ```
 
 ## NOTA:

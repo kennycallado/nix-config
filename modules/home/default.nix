@@ -1,31 +1,58 @@
-{ inputs, pkgs, host, lib, config, ... }:
+{ inputs, pkgs, host, is_nixos, ... }:
 
+let
+  michaelCtsHm = builtins.fetchTarball "https://github.com/michaelCTS/home-manager/archive/refs/heads/feat/add-nixgl-workaround.zip";
+  nixGlModule = "${michaelCtsHm}/modules/misc/nixgl.nix";
+
+  inherit (inputs.nixpkgs.lib) mkIf;
+in
 {
   imports = [
-    ./packages
-    inputs.agenix.homeManagerModules.age
+    nixGlModule
+    (import ./packages { inherit inputs pkgs is_nixos; })
   ];
+
+  workarounds.nixgl = mkIf (!is_nixos) {
+    packages = with pkgs; [
+      # { pkg = wezterm; }
+      { pkg = inputs.unstable.legacyPackages.${pkgs.system}.wezterm; }
+    ];
+  };
 
   home.packages = with pkgs; [
     youtube-tui
     yt-dlp
     # lxappearance
     # pkgs.papirus-icon-theme
-    (import ./scripts/wallsetter.nix { inherit pkgs config; })
-    (import ./scripts/wez-ssh.nix { inherit pkgs; })
-  ];
+    # (import ./scripts/wallsetter.nix { inherit pkgs config; })
+    # (import ./scripts/wez-ssh.nix { inherit pkgs; })
+  ]
+  ++ (if !is_nixos then
+    [
+      xclip
+      neovim
+      lunarvim
+    ] else [
+      (import ./scripts/wallsetter.nix { inherit pkgs config; })
+      (import ./scripts/wez-ssh.nix { inherit pkgs; })
+    ]);
 
   home.username = "${host.config.user.username}";
   home.homeDirectory = "/home/${host.config.user.username}";
   home.stateVersion = "23.11";
 
-  home.file."${config.xdg.userDirs.pictures}/wallpapers" = {
+  # home.file."${host.config.xdg.userDirs.pictures}/wallpapers" = {
+  home.file."Pictures/wallpapers" = {
     source = ./media/wallpapers;
     recursive = true;
   };
 
   home.file.".config/lvim/config.lua" = {
     source = ./files/lunarvim/config.lua;
+  };
+
+  home.file.".ssh/authorized_keys" = mkIf (!is_nixos) {
+    text = host.config.user.sshPublicKey;
   };
 
   programs.git = {
@@ -43,7 +70,7 @@
   # };
 
   # needs to be set in the user's home directory
-  dconf.settings = lib.mkIf (host.config.virtualization.enable) {
+  dconf.settings = mkIf (host.config.virtualization.enable) {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = [ "qemu:///system" ];
       uris = [ "qemu:///system" ];

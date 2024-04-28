@@ -1,10 +1,11 @@
-{ inputs, pkgs, ... }:
-
+{ inputs, pkgs, is_nixos, ... }:
+let
+  inherit (inputs.nixpkgs.lib) mkIf;
+in
 {
-  # compile from source
-  programs.wezterm = {
+  programs.wezterm = mkIf (is_nixos) {
       enable = true;
-      package = inputs.wezterm.packages.${pkgs.system}.default; # from source
+      package = inputs.unstable.legacyPackages.${pkgs.system}.wezterm;
       # package = pkgs.wezterm; # from repo
 
       # extraConfig = '' '';
