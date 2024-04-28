@@ -4,11 +4,11 @@ let
 in
 {
   programs.wezterm = mkIf (is_nixos) {
-      enable = true;
-      package = inputs.unstable.legacyPackages.${pkgs.system}.wezterm;
-      # package = pkgs.wezterm; # from repo
+    enable = true;
+    package = inputs.unstable.legacyPackages.${pkgs.system}.wezterm;
+    # package = pkgs.wezterm; # from repo
 
-      # extraConfig = '' '';
+    # extraConfig = '' '';
   };
 
   # installed via unstable

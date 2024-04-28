@@ -100,48 +100,47 @@
         specialArgs = { inherit host inputs; };
 
         modules =
-        let
-          is_nixos = false;
-        in [
-          ./hosts
-          ./modules/gaming
-          ./modules/desktop
-          ./modules/development
-          ./modules/sshd
-          ./modules/virtualization
+          let
+            is_nixos = false;
+          in
+          [
+            ./hosts
+            ./modules/gaming
+            ./modules/desktop
+            ./modules/development
+            ./modules/sshd
+            ./modules/virtualization
 
-          {
-            gaming = host.config.gaming;
-            desktops = host.config.desktops;
-            development = host.config.development;
-            virtualization = host.config.virtualization;
-            sshd = host.config.sshd;
-          }
+            {
+              gaming = host.config.gaming;
+              desktops = host.config.desktops;
+              development = host.config.development;
+              virtualization = host.config.virtualization;
+              sshd = host.config.sshd;
+            }
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.extraSpecialArgs = {
-              inherit host;
-              inherit inputs;
-            };
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users."${host.config.user.username}" = import ./modules/home { inherit is_nixos; };
-          }
-        ];
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit host inputs; };
+              home-manager.users."${host.config.user.username}" = import ./modules/home { inherit inputs pkgs host is_nixos; };
+            }
+          ];
       };
 
       homeConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         modules =
-        let
-          is_nixos = false;
-        in [
-          inputs.agenix.homeManagerModules.age
-          { programs.home-manager.enable = true; }
-          (import ./modules/home { inherit inputs pkgs host is_nixos; })
-        ];
+          let
+            is_nixos = false;
+          in
+          [
+            inputs.agenix.homeManagerModules.age
+            { programs.home-manager.enable = true; }
+            (import ./modules/home { inherit inputs pkgs host is_nixos; })
+          ];
       };
 
       formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;

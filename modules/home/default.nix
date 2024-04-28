@@ -1,5 +1,4 @@
 { inputs, pkgs, host, is_nixos, ... }:
-
 let
   michaelCtsHm = builtins.fetchTarball "https://github.com/michaelCTS/home-manager/archive/refs/heads/feat/add-nixgl-workaround.zip";
   nixGlModule = "${michaelCtsHm}/modules/misc/nixgl.nix";
@@ -9,6 +8,7 @@ in
 {
   imports = [
     nixGlModule
+    inputs.agenix.homeManagerModules.age
     (import ./packages { inherit inputs pkgs is_nixos; })
   ];
 
@@ -24,22 +24,18 @@ in
     yt-dlp
     # lxappearance
     # pkgs.papirus-icon-theme
-    # (import ./scripts/wallsetter.nix { inherit pkgs config; })
-    # (import ./scripts/wez-ssh.nix { inherit pkgs; })
-  ] ++ (
-    if !is_nixos then
-      host.config.extraPackages
-    else [
-      (import ./scripts/wallsetter.nix { inherit pkgs config; })
-      (import ./scripts/wez-ssh.nix { inherit pkgs; })
-    ]);
+  ]
+  ++ host.config.extraPackages
+  ++ (if is_nixos then [
+    (import ./scripts/wallsetter.nix { inherit pkgs config; })
+    (import ./scripts/wez-ssh.nix { inherit pkgs; })
+  ] else [ ]);
 
   home.username = "${host.config.user.username}";
   home.homeDirectory = "/home/${host.config.user.username}";
   home.stateVersion = "23.11";
 
-  # home.file."${host.config.xdg.userDirs.pictures}/wallpapers" = {
-  home.file."Pictures/wallpapers" = {
+  home.file."${if is_nixos then host.config.xdg.userDirs.pictures else "Pictures" }/wallpapers" = {
     source = ./media/wallpapers;
     recursive = true;
   };

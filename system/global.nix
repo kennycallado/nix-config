@@ -1,16 +1,18 @@
 { pkgs, inputs, host, lib, config, ... }:
+
 let
   agenix = {
     imports = [ inputs.agenix.nixosModules.age ];
     environment.systemPackages = [ inputs.agenix.packages.${pkgs.system}.agenix ];
   };
+
   inherit (lib) mkIf getName;
 in
 {
 
   imports = [
-    ./extra/maintenance.nix
     agenix
+    ./extra/maintenance.nix
   ];
 
   services.qemuGuest = mkIf (host.config.is_vm) { enable = true; };
@@ -68,7 +70,8 @@ in
       unar
       lm_sensors
       cryptsetup
-    ] ++ host.config.extraPackages;
+    ];
+    # ] ++ host.config.extraPackages; # already in home default
   };
 
   environment.variables = {

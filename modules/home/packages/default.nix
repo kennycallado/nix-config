@@ -11,16 +11,16 @@
     (import ./wezterm.nix { inherit inputs pkgs is_nixos; })
   ]
   ++ (if is_nixos then [
-      ./rofi.nix
-      ./icewm.nix
-      ./swaync.nix
-      ./thunar.nix
-      ./waybar.nix
-      ./pcmanfm.nix
-      ./hyprland.nix
-    ] else [
-      ./podman.nix
-    ]);
+    ./rofi.nix
+    ./icewm.nix
+    ./swaync.nix
+    ./thunar.nix
+    ./waybar.nix
+    ./pcmanfm.nix
+    ./hyprland.nix
+  ] else [
+    ./podman.nix
+  ]);
 
   programs.starship = {
     enable = true;
