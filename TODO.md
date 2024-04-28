@@ -1,6 +1,19 @@
 
 ## TODO
 
+- [X] lunarvim: issue with rest.nvim specify version for now
+  ``` lua
+  {
+  ...
+    "rest-nvim/rest.nvim",
+    version = "v1.0.0",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  ...
+  }
+  ```
+- [ ] wl-screenrec: nix-shell -p wl-screenrec && wl-screenrec --audio
+  - There was a script with it to select screen region, but don't know where
+
 - [ ] firefox: [link](https://code.balsoft.ru/balsoft/nixos-config/src/branch/master/profiles/applications/firefox.nix)
   - take a look of the rest
    

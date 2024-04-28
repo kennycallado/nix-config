@@ -16,7 +16,7 @@
     };
   };
 
-  outputs = inputs@{ home-manager, ... }:
+  outputs = inputs@{ home-manager, nixpkgs, ... }:
     let
       config = rec {
         name = "vm"; # knowns: hplap | ryzen
@@ -127,6 +127,15 @@
             home-manager.useUserPackages = true;
             home-manager.users."${host.config.user.username}" = import ./modules/home;
           }
+        ];
+      };
+
+      homeConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        modules = [
+          (import ./modules/home { inherit inputs pkgs host config; })
+          { programs.home-manager.enable = true; }
         ];
       };
 

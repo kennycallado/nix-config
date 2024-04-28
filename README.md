@@ -1,10 +1,27 @@
-# jo
+# Nix Configuration
 
 ## TODO
 
 [list](./TODO.md)
 
+## DECK
+
+[research](https://nix-community.github.io/home-manager/index.xhtml#sec-install-standalone)
+[options](https://mynixos.com/home-manager/option)
+
+``` bash
+home-manager --impure --flake .
+```
+
 ## NOTA:
+
+Until 24.05 wezterm comes from unstable
+
+``` bash
+nix-env -f channel:nixpkgs-unstable -iA wezterm
+```
+
+---
 
 rdp needs icewm, make dependents
 
@@ -41,6 +58,12 @@ result/bin/run-<host.name>-vm -vga virtio
 
 ``` bash
 nixos-rebuild switch --flake .#<name>
+```
+
+## rollback from there
+
+``` bash
+nixos-rebuild --rollback switch
 ```
 
 ## Some packages specifications:

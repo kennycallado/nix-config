@@ -4,6 +4,8 @@
   programs.bash = {
     enable = true;
     enableCompletion = true;
+    bashrcExtra = '' '';
+    # bashrcExtra = ''source ~/.config/bash/bashrc'';
     # interactiveShellInit = (builtins.readFile ~/.config/bash/bashrc);
     initExtra = ''
       eval "$(starship init bash)"
@@ -25,5 +27,9 @@
       lal = "lsd -al";
       ".." = "cd ..";
     };
+    historyIgnore = [ "yt-dpl" "mpv" ];
+    logoutExtra = ''
+      sed -i '/.*mp4$/d' ~/.bash_history
+    '';
   };
 }
