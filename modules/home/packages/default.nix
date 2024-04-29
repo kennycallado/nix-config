@@ -7,7 +7,6 @@
     ./rofi.nix
     ./icewm.nix
     ./docker.nix
-    ./podman.nix
     ./swaync.nix
     ./thunar.nix
     ./waybar.nix
@@ -17,8 +16,7 @@
     ./hyprland.nix
     ./alacritty.nix
     (import ./wezterm.nix { inherit inputs pkgs is_nixos; })
-  ];
-  # ++ (if is_nixos then [ ] else [ ./podman.nix ]);
+  ] ++ (if (!is_nixos) then [./podman.nix] else []);
 
   programs.starship = {
     enable = true;
