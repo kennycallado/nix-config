@@ -3,7 +3,7 @@
 pkgs.writeShellScriptBin "wallsetter" ''
   #
   # supports setting wallpapers for both hyprland and icewm
-  WDIR=${config.xdg.userDirs.pictures}/wallpapers/
+  WDIR=$HOME/Pictures/wallpapers/
   DESK=$XDG_SESSION_DESKTOP
 
   # prevent infinite recursion if there's only one file in the directory

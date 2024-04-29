@@ -35,7 +35,7 @@ in
   home.homeDirectory = "/home/${host.config.user.username}";
   home.stateVersion = "23.11";
 
-  home.file."${if is_nixos then host.config.xdg.userDirs.pictures else "Pictures" }/wallpapers" = {
+  home.file."Pictures/wallpapers" = {
     source = ./media/wallpapers;
     recursive = true;
   };

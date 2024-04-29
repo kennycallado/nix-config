@@ -2,25 +2,23 @@
 
 {
   imports = [
-    ./alacritty.nix
-    ./bash.nix
-    ./copilot.nix
-    ./docker.nix
     ./gh.nix
-    ./joshuto.nix
-    (import ./wezterm.nix { inherit inputs pkgs is_nixos; })
-  ]
-  ++ (if is_nixos then [
+    ./bash.nix
     ./rofi.nix
     ./icewm.nix
+    ./docker.nix
+    ./podman.nix
     ./swaync.nix
     ./thunar.nix
     ./waybar.nix
+    ./copilot.nix
+    ./joshuto.nix
     ./pcmanfm.nix
     ./hyprland.nix
-  ] else [
-    ./podman.nix
-  ]);
+    ./alacritty.nix
+    (import ./wezterm.nix { inherit inputs pkgs is_nixos; })
+  ];
+  # ++ (if is_nixos then [ ] else [ ./podman.nix ]);
 
   programs.starship = {
     enable = true;

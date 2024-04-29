@@ -101,7 +101,7 @@
 
         modules =
           let
-            is_nixos = false;
+            is_nixos = true;
           in
           [
             ./hosts
@@ -137,7 +137,7 @@
             is_nixos = false;
           in
           [
-            inputs.agenix.homeManagerModules.age
+            # inputs.agenix.homeManagerModules.age
             { programs.home-manager.enable = true; }
             (import ./modules/home { inherit inputs pkgs host is_nixos; })
           ];
