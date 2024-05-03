@@ -16,7 +16,7 @@
     ./hyprland.nix
     ./alacritty.nix
     (import ./wezterm.nix { inherit inputs pkgs is_nixos; })
-  ] ++ (if (!is_nixos) then [./podman.nix] else []);
+  ] ++ (if (!is_nixos) then [ ./podman.nix ] else [ ]);
 
   programs.starship = {
     enable = true;
