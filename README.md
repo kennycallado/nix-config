@@ -10,7 +10,10 @@
 [options](https://mynixos.com/home-manager/option)
 
 ``` bash
-home-manager switch -b backup --impure --flake .#steamdeck
+home-manager switch -b backup --flake .#steamdeck
+
+# in case workaround for nixgl
+# home-manager switch -b backup --impure --flake .#steamdeck
 ```
 
 ## NOTA:
