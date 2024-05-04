@@ -1,39 +1,52 @@
-{ inputs, pkgs, host, is_nixos, ... }:
+{ inputs, agenix, pkgs, host, is_nixos, config, ... }:
 let
-  michaelCtsHm = builtins.fetchTarball "https://github.com/michaelCTS/home-manager/archive/refs/heads/feat/add-nixgl-workaround.zip";
-  nixGlModule = "${michaelCtsHm}/modules/misc/nixgl.nix";
+  # michaelCtsHm = builtins.fetchTarball "https://github.com/michaelCTS/home-manager/archive/refs/heads/feat/add-nixgl-workaround.zip";
+  # nixGlModule = "${michaelCtsHm}/modules/misc/nixgl.nix";
 
   inherit (inputs.nixpkgs.lib) mkIf;
 in
 {
   imports = [
-    nixGlModule
-    inputs.agenix.homeManagerModules.age
-    (import ./packages { inherit inputs pkgs is_nixos; })
+    ./packages
+    # nixGlModule
+    agenix.homeManagerModules.age
   ];
 
-  workarounds.nixgl = mkIf (!is_nixos) {
-    packages = with pkgs; [
-      # { pkg = wezterm; }
-      { pkg = inputs.unstable.legacyPackages.${pkgs.system}.wezterm; }
-    ];
-  };
+  home.stateVersion = "23.11";
+
+  home.username = "${host.config.user.username}";
+  home.homeDirectory = "/home/${host.config.user.username}";
+
+  # workarounds.nixgl = mkIf (!is_nixos) {
+  #   packages = with pkgs; [
+  #     # { pkg = wezterm; }
+  #     { pkg = inputs.unstable.legacyPackages.${pkgs.system}.wezterm; }
+  #   ];
+  # };
 
   home.packages = with pkgs; [
-    youtube-tui
+    gh
     yt-dlp
+    # youtube-tui
     # lxappearance
     # pkgs.papirus-icon-theme
   ]
   ++ host.config.extraPackages
-  ++ (if is_nixos then [
-    (import ./scripts/wallsetter.nix { inherit pkgs config; })
-    (import ./scripts/wez-ssh.nix { inherit pkgs; })
-  ] else [ ]);
+  ++ (
+    if is_nixos then [
+      (import ./scripts/wallsetter.nix { inherit pkgs config; })
+      (import ./scripts/wez-ssh.nix { inherit pkgs; })
+    ] else with pkgs; [
+      nixgl.nixGLIntel
+    ]);
 
-  home.username = "${host.config.user.username}";
-  home.homeDirectory = "/home/${host.config.user.username}";
-  home.stateVersion = "23.11";
+  programs.home-manager.enable = true;
+
+  programs.git = {
+    enable = true;
+    userName = host.config.user.name; # options for home-manager ??
+    userEmail = host.config.user.email; # options for home-manager ??
+  };
 
   home.file."Pictures/wallpapers" = {
     source = ./media/wallpapers;
@@ -48,12 +61,6 @@ in
     text = host.config.user.sshPublicKey;
   };
 
-  programs.git = {
-    enable = true;
-    userName = host.config.user.name; # options for home-manager ??
-    userEmail = host.config.user.email; # options for home-manager ??
-  };
-
   # home.pointerCursor = {
   #   gtk.enable = true;
   #   x11.enable = false;
@@ -63,21 +70,21 @@ in
   # };
 
   # needs to be set in the user's home directory
-  dconf.settings = mkIf (host.config.virtualization.enable) {
+  dconf.settings = mkIf (host.config.virtualization.enable && is_nixos) {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = [ "qemu:///system" ];
       uris = [ "qemu:///system" ];
     };
   };
 
-  qt = {
+  qt = mkIf (is_nixos) {
     enable = true;
     platformTheme = "gtk";
     style.name = "adwaita-dark";
     style.package = pkgs.adwaita-qt;
   };
 
-  gtk = {
+  gtk = mkIf (is_nixos) {
     enable = true;
     font = {
       name = "Ubuntu";
