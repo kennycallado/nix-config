@@ -44,7 +44,7 @@ in
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       };
 
-      # waybar.enable = true; # should be added in home and launch by hyprland
+      waybar.enable = true;
     };
   };
 }
