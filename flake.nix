@@ -101,29 +101,29 @@
         specialArgs = { inherit host inputs; };
 
         modules = [
-            ./hosts
-            ./modules/gaming
-            ./modules/desktop
-            ./modules/development
-            ./modules/sshd
-            ./modules/virtualization
+          ./hosts
+          ./modules/gaming
+          ./modules/desktop
+          ./modules/development
+          ./modules/sshd
+          ./modules/virtualization
 
-            {
-              gaming = host.config.gaming;
-              desktops = host.config.desktops;
-              development = host.config.development;
-              virtualization = host.config.virtualization;
-              sshd = host.config.sshd;
-            }
+          {
+            gaming = host.config.gaming;
+            desktops = host.config.desktops;
+            development = host.config.development;
+            virtualization = host.config.virtualization;
+            sshd = host.config.sshd;
+          }
 
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = let is_nixos = true; in { inherit inputs agenix host is_nixos; };
-              home-manager.users."${host.config.user.username}" = import ./modules/home;
-            }
-          ];
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = let is_nixos = true; in { inherit inputs agenix host is_nixos; };
+            home-manager.users."${host.config.user.username}" = import ./modules/home;
+          }
+        ];
       };
 
       homeConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = home-manager.lib.homeManagerConfiguration rec {

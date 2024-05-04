@@ -39,7 +39,8 @@ in
       (import ./scripts/wez-ssh.nix { inherit pkgs; })
     ] else with pkgs; [
       nixgl.nixGLIntel
-    ]);
+    ]
+  );
 
   programs.home-manager.enable = true;
 

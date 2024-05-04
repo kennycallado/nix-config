@@ -14,7 +14,7 @@ in
     agenix
     ./extra/maintenance.nix
   ];
-   
+
   # [link](https://discourse.nixos.org/t/how-do-i-cross-compile-a-flake/12062/4)
   # boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
