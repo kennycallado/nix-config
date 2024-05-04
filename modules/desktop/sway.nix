@@ -27,7 +27,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      waybar
+      # waybar
       swaybg
       rofi-wayland
       wl-clipboard

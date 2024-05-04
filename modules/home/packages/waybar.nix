@@ -1,8 +1,9 @@
-{ ... }:
+{ host, ... }:
 
 {
   programs.waybar = {
-    # enable = true;
+    enable = host.config.desktops.hyprland.enable || host.config.desktops.sway.enable;
+
     settings = [{
       layer = "top";
       position = "top";

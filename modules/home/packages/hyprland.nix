@@ -1,10 +1,11 @@
-{ host, lib, ... }:
+{ lib, host, ... }:
 
 {
   # home.packages = with pkgs; [ ];
 
   wayland.windowManager.hyprland = {
-    # enable = true;
+    enable = host.config.desktops.hyprland.enable;
+
     xwayland.enable = true;
 
     settings = {

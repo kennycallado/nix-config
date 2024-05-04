@@ -44,7 +44,7 @@ in
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       };
 
-      waybar.enable = true;
+      # waybar.enable = true;
     };
   };
 }
