@@ -100,11 +100,7 @@
         system = host.config.arch;
         specialArgs = { inherit host inputs; };
 
-        modules =
-          let
-            is_nixos = true;
-          in
-          [
+        modules = [
             ./hosts
             ./modules/gaming
             ./modules/desktop
@@ -124,10 +120,8 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs host is_nixos; };
+              home-manager.extraSpecialArgs = let is_nixos = true; in { inherit inputs agenix host is_nixos; };
               home-manager.users."${host.config.user.username}" = import ./modules/home;
-              # home-manager.extraSpecialArgs = { inherit host inputs; };
-              # home-manager.users."${host.config.user.username}" = import ./modules/home { inherit inputs pkgs host is_nixos; };
             }
           ];
       };

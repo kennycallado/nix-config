@@ -1,4 +1,4 @@
-{ inputs, agenix, pkgs, host, is_nixos, config, ... }:
+{ inputs, agenix, pkgs, host, is_nixos, ... }:
 let
   # michaelCtsHm = builtins.fetchTarball "https://github.com/michaelCTS/home-manager/archive/refs/heads/feat/add-nixgl-workaround.zip";
   # nixGlModule = "${michaelCtsHm}/modules/misc/nixgl.nix";
@@ -7,6 +7,7 @@ let
 in
 {
   imports = [
+    ./media
     ./packages
     # nixGlModule
     agenix.homeManagerModules.age
@@ -46,11 +47,6 @@ in
     enable = true;
     userName = host.config.user.name; # options for home-manager ??
     userEmail = host.config.user.email; # options for home-manager ??
-  };
-
-  home.file."Pictures/wallpapers" = {
-    source = ./media/wallpapers;
-    recursive = true;
   };
 
   home.file.".config/lvim/config.lua" = {
