@@ -8,6 +8,11 @@
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixgl.url = "github:nix-community/nixGL";
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/release-23.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,7 +20,7 @@
     };
   };
 
-  outputs = inputs@{ nixgl, agenix, home-manager, nixpkgs, ... }:
+  outputs = inputs@{ nixgl, agenix, nix-on-droid, home-manager, nixpkgs, ... }:
     let
       config = rec {
         name = "vm"; # knowns: hplap | ryzen | steamdeck
@@ -139,6 +144,22 @@
         ];
       };
 
-      formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
+        extraSpecialArgs = let is_nixos = false; in { inherit inputs agenix host is_nixos; };
+        pkgs = import nixpkgs {
+          system = "aarch64-linux";
+          overlays = [
+            nix-on-droid.overlays.default
+          ];
+        };
+
+        home-manager-path = home-manager.outPath;
+
+        modules = [
+          ./system/droid.nix
+        ];
+      };
+
+      formatter.${host.config.arch} = inputs.nixpkgs.legacyPackages.${host.config.arch}.nixpkgs-fmt;
     };
 }
