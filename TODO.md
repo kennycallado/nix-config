@@ -1,6 +1,7 @@
 
 ## TODO
 
+- [X] hyperland: Is enabled twice?
 - [X] lunarvim: issue with rest.nvim specify version for now
   ``` lua
   {

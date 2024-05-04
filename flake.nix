@@ -7,6 +7,7 @@
     hyprland.url = "github:hyprwm/Hyprland?ref=v0.34.0";
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixgl.url = "github:nix-community/nixGL";
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,7 +15,7 @@
     };
   };
 
-  outputs = inputs@{ home-manager, nixpkgs, ... }:
+  outputs = inputs@{ nixgl, agenix, home-manager, nixpkgs, ... }:
     let
       config = rec {
         name = "vm"; # knowns: hplap | ryzen | steamdeck
@@ -123,24 +124,25 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit host inputs; };
-              home-manager.users."${host.config.user.username}" = import ./modules/home { inherit inputs pkgs host is_nixos; };
+              home-manager.extraSpecialArgs = { inherit inputs host is_nixos; };
+              home-manager.users."${host.config.user.username}" = import ./modules/home;
+              # home-manager.extraSpecialArgs = { inherit host inputs; };
+              # home-manager.users."${host.config.user.username}" = import ./modules/home { inherit inputs pkgs host is_nixos; };
             }
           ];
       };
 
-      homeConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+      homeConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = home-manager.lib.homeManagerConfiguration rec {
+        extraSpecialArgs = let is_nixos = false; in { inherit inputs agenix host is_nixos; };
+        pkgs = import nixpkgs {
+          system = "${host.config.arch}";
+          overlays = [ nixgl.overlay ];
+        };
 
-        modules =
-          let
-            is_nixos = false;
-          in
-          [
-            # inputs.agenix.homeManagerModules.age
-            { programs.home-manager.enable = true; }
-            (import ./modules/home { inherit inputs pkgs host is_nixos; })
-          ];
+        modules = [
+          ./modules/home
+          # { programs.home-manager.enable = true; }
+        ];
       };
 
       formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
