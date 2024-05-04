@@ -1,9 +1,7 @@
-{ inputs, pkgs, is_nixos, ... }:
-let
-  inherit (inputs.nixpkgs.lib) mkIf;
-in
+{ inputs, pkgs, ... }:
+
 {
-  programs.wezterm = mkIf (is_nixos) {
+  programs.wezterm = {
     enable = true;
     package = inputs.unstable.legacyPackages.${pkgs.system}.wezterm;
     # package = pkgs.wezterm; # from repo
