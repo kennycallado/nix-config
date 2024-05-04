@@ -14,6 +14,9 @@ in
     agenix
     ./extra/maintenance.nix
   ];
+   
+  # [link](https://discourse.nixos.org/t/how-do-i-cross-compile-a-flake/12062/4)
+  # boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   services.qemuGuest = mkIf (host.config.is_vm) { enable = true; };
   services.blueman.enable = config.hardware.bluetooth.enable;
