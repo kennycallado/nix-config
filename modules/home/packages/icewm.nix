@@ -1,4 +1,5 @@
 { pkgs, host, ... }:
+
 {
   home.packages = with pkgs; [
     picom

@@ -1,4 +1,6 @@
-{ ... }: {
+{ ... }:
+
+{
   age.secrets.gh = {
     file = ../../../secrets/gh.age;
     path = "$HOME/.config/gh/hosts.yml"; # TODO: test $HOME

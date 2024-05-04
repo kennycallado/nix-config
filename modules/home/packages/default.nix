@@ -1,4 +1,4 @@
-{ inputs, pkgs, is_nixos, ... }:
+{ pkgs, is_nixos, ... }:
 
 {
   imports = [
@@ -13,9 +13,9 @@
     ./copilot.nix
     ./joshuto.nix
     ./pcmanfm.nix
+    ./wezterm.nix
     ./hyprland.nix
     ./alacritty.nix
-    (import ./wezterm.nix { inherit inputs pkgs is_nixos; })
   ] ++ (if (!is_nixos) then [ ./podman.nix ] else [ ]);
 
   programs.starship = {
