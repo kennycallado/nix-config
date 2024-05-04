@@ -1,10 +1,6 @@
-{ pkgs, host, ... }:
+{ host, ... }:
 
 {
-  home.packages = with pkgs; [
-    picom
-  ];
-
   home.file.".icewm/themes" = {
     source = ../files/icewm/themes;
     recursive = true;

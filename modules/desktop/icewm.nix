@@ -13,6 +13,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       volumeicon
+      picom
       feh # for setting the wallpaper
     ];
 
