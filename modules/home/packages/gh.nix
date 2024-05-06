@@ -6,7 +6,7 @@
     path = "$HOME/.config/gh/hosts.yml"; # TODO: test $HOME
   };
 
-  home.file.".config/gh/config.yaml" = {
+  home.file.".config/gh/config.yml" = {
     text = ''
       git_protocol: https
       editor: nvim
