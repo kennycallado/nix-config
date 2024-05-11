@@ -15,6 +15,7 @@
     ./pcmanfm.nix
     ./wezterm.nix
     ./hyprland.nix
+    ./readline.nix
     ./alacritty.nix
   ] ++ (if (!is_nixos) then [ ./podman.nix ] else [ ]);
 
