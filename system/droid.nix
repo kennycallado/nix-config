@@ -37,7 +37,8 @@
   system.stateVersion = "23.11";
 
   # "JetBrainsMono"
-  terminal.font  = ''${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf'';
+  terminal.font = ''${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/FiraCodeNerdFontMono-Regular.ttf'';
+
 
   # Set up nix for flakes
   nix.extraOptions = ''
