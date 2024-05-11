@@ -5,12 +5,12 @@
     enable = true;
     enableCompletion = true;
 
-    bashrcExtra = '' '';
     # bashrcExtra = ''source ~/.config/bash/bashrc'';
     # interactiveShellInit = (builtins.readFile ~/.config/bash/bashrc);
-    initExtra = ''
-      eval "$(starship init bash)"
-    '';
+
+    # initExtra = ''
+    #   eval "$(starship init bash)" # already done by starship
+    # '';
 
     profileExtra = ''
       # maybe my .config/bash
@@ -20,14 +20,11 @@
 
     sessionVariables = { };
 
-    shellOptions = [
-      "-o vi"
-    ];
-
     shellAliases = {
       lf = "joshuto";
       lv = "lvim";
       xc = "nix-collect-garbage && nix-collect-garbage -d";
+      xcs = "sudo nix-collect-garbage && sudo nix-collect-garbage -d";
       xcb = "sudo /run/current-system/bin/switch-to-configuration boot";
       ls = "lsd";
       ll = "lsd -l";
