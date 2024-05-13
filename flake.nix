@@ -1,7 +1,19 @@
 {
   description = "Kenny Callado's NixOS configuration";
 
+  # raspi5
+  nixConfig = {
+    extra-substituters = [ "https://raspberry-pi-nix.cachix.org" ];
+    extra-trusted-public-keys = [
+      "raspberry-pi-nix.cachix.org-1:WmV2rdSangxW0rZjY/tBvBDSaNFQ3DyEQsVw8EvHn9o="
+    ];
+  };
+
   inputs = {
+  # raspi5
+    raspberry-pi-nix.url = "github:tstat/raspberry-pi-nix";
+    # nixpkgs.url = "github:NixOS/nixpkgs/8bf65f17d8070a0a490daf5f1c784b87ee73982c";
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     hyprland.url = "github:hyprwm/Hyprland?ref=v0.34.0";
@@ -20,7 +32,7 @@
     };
   };
 
-  outputs = inputs@{ nixgl, agenix, nix-on-droid, home-manager, nixpkgs, ... }:
+  outputs = inputs@{ raspberry-pi-nix , nixgl, agenix, nix-on-droid, home-manager, nixpkgs, ... }:
     let
       config = rec {
         name = "vm"; # knowns: hplap | ryzen | steamdeck
@@ -103,7 +115,7 @@
     {
       nixosConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = inputs.nixpkgs.lib.nixosSystem {
         system = host.config.arch;
-        specialArgs = { inherit host inputs; };
+        specialArgs = { inherit host inputs raspberry-pi-nix; };
 
         modules = [
           ./hosts
@@ -129,6 +141,13 @@
             home-manager.users."${host.config.user.username}" = import ./modules/home;
           }
         ];
+
+        # ++ nixpkgs.lib.mkIf host.config.name == "raspi5lab" [
+        #     raspberry-pi-nix.nixosModules.raspberry-pi
+        #     {
+        #       raspberry-pi-nix.uboot.enable = false;
+        #     }
+        # ];
       };
 
       homeConfigurations."${if (host.config.is_known) then host.config.name else "unknown" }" = home-manager.lib.homeManagerConfiguration rec {
