@@ -27,20 +27,23 @@ in
 
   home.packages = with pkgs; [
     gh
-    yt-dlp
+    # yt-dlp
     # youtube-tui
     # lxappearance
     # pkgs.papirus-icon-theme
   ]
   ++ host.config.extraPackages
+  ++ [
+    inputs.unstable.legacyPackages.${pkgs.system}.yt-dlp
+    inputs.unstable.legacyPackages.${pkgs.system}.mpv
+  ]
   ++ (
     if is_nixos then [
       (import ./scripts/wallsetter.nix { inherit pkgs config; })
       (import ./scripts/wez-ssh.nix { inherit pkgs; })
     ] else with pkgs; [
       nixgl.nixGLIntel
-    ]
-  );
+    ]);
 
   programs.home-manager.enable = true;
 

@@ -101,7 +101,7 @@ in
       # polkit # ??
       # polkit_gnome # ??
       imv # image viewer
-      mpv
+      # mpv
       zathura # pdf viewer
       alacritty
       leafpad # text editor
