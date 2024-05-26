@@ -62,6 +62,7 @@ in
   environment = {
     systemPackages = with pkgs; [
       curl
+      xh
       wget
       tree
       file
