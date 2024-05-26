@@ -1,6 +1,11 @@
-{ inputs, pkgs, lib, agenix, host, is_nixos, ... }:
+{ inputs, pkgs, agenix, host, ... }:
 
 {
+
+  imports = [
+    ./extra/droid-sshd.nix
+  ];
+
   # Simply install just the packages
   environment.packages = with pkgs; [
     # User-facing stuff that you really really want to have
