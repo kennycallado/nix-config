@@ -168,6 +168,9 @@
         { keys = [ ":" ],		commands = [":"] },
         { keys = [ ";" ],		commands = [":"] },
 
+        # issue opened for this
+        { keys = [ "-" ],		commands = [":shell rvim ."] },
+
         { keys = [ "'" ],		commands = [":shell "] },
         { keys = [ "m", "k" ],		commands = [":mkdir "] },
         { keys = [ "c", "w" ],		commands = [":rename "] },
