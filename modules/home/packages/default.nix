@@ -9,6 +9,7 @@
     ./docker.nix
     ./swaync.nix
     ./thunar.nix
+    ./zoxide.nix
     ./waybar.nix
     ./copilot.nix
     ./joshuto.nix
