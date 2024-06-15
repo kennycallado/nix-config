@@ -69,6 +69,11 @@ in
   #   size = 24;
   # };
 
+  # services.remmina = {
+  #   enable = true;
+  #   systemdServices.enable = false;
+  # };
+
   # needs to be set in the user's home directory
   dconf.settings = mkIf (host.config.virtualization.enable && is_nixos) {
     "org/virt-manager/virt-manager/connections" = {
