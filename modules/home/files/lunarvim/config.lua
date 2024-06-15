@@ -113,48 +113,7 @@ lvim.builtin.treesitter.auto_install = true
 --     },
 -- }
 
--- -- Copilot Config - OPTION 1
--- lvim.builtin.sell_soul_to_devel = true
-
--- lvim.plugins = {
---   {
---     "gelfand/copilot.vim",
---     disable = not lvim.builtin.sell_soul_to_devel,
---     config = function()
---       -- copilot assume mapped
---       vim.g.copilot_assume_mapped = true
---       vim.g.copilot_no_tab_map = true
---     end
---   },
---   {
---     "hrsh7th/cmp-copilot",
---     disable = not lvim.builtin.sell_soul_to_devel,
---     config = function()
---       lvim.builtin.cmp.formatting.source_names["copilot"] = "(Cop)"
---       table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
---     end
---   },
--- }
-
--- Copilot Config - OPTION 2
 lvim.plugins = {
-  { "github/copilot.vim" },
-  -- ChatGPT
-  -- { "jackMort/ChatGPT.nvim",
-  --   config = function()
-  --     require("chatgpt").setup({
-  --       -- optional configuration
-  --       openai_params = {
-  --         max_tokens = 300,
-  --       }
-  --     })
-  --   end,
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-telescope/telescope.nvim"
-  --   } }
-  --  rest.nvim
   {
     "dariuscorvus/tree-sitter-surrealdb.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -163,6 +122,7 @@ lvim.plugins = {
       require("tree-sitter-surrealdb").setup()
     end,
   },
+
   {
     "rest-nvim/rest.nvim",
     version = "v1.2.1",
@@ -203,27 +163,52 @@ lvim.plugins = {
         yank_dry_run = true,
       })
     end
+  },
+
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = "<C-e>",
+            accept_word = false,
+            accept_line = false,
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-]>",
+          }
+        }
+      })
+    end,
   }
 }
 
--- Config for Copilot
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_assume_mapped = true
-vim.g.copilot_tab_fallback = ""
-local cmp = require "cmp"
+-- Config for Copilot -> old
 
-lvim.builtin.cmp.mapping["<C-e>"] = function(fallback)
-  cmp.mapping.abort()
-  local copilot_keys = vim.fn["copilot#Accept"]()
-  if copilot_keys ~= "" then
-    vim.api.nvim_feedkeys(copilot_keys, "i", true)
-  else
-    fallback()
-  end
-end
+-- lvim.plugins = {
+--   { "github/copilot.vim" },
+-- }
+-- vim.g.copilot_no_tab_map = true
+-- vim.g.copilot_assume_mapped = true
+-- vim.g.copilot_tab_fallback = ""
+-- local cmp = require "cmp"
 
-lvim.builtin.cmp.formatting.source_names["copilot"] = "(Cop)"
-table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
+-- lvim.builtin.cmp.mapping["<C-e>"] = function(fallback)
+--   cmp.mapping.abort()
+--   local copilot_keys = vim.fn["copilot#Accept"]()
+--   if copilot_keys ~= "" then
+--     vim.api.nvim_feedkeys(copilot_keys, "i", true)
+--   else
+--     fallback()
+--   end
+-- end
+
+-- lvim.builtin.cmp.formatting.source_names["copilot"] = "(Cop)"
+-- table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
 
 lvim.autocommands = {
   {
