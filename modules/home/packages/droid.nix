@@ -6,8 +6,8 @@
     ./bash.nix
     # ./rofi.nix
     # ./icewm.nix
-    ./docker.nix
-    ./podman.nix 
+    # ./docker.nix
+    # ./podman.nix
     # ./swaync.nix
     # ./thunar.nix
     # ./waybar.nix
