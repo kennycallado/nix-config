@@ -22,7 +22,6 @@
 
     shellAliases = {
       lf = "joshuto";
-      lv = "lvim";
       xc = "nix-collect-garbage && nix-collect-garbage -d";
       xcs = "sudo nix-collect-garbage && sudo nix-collect-garbage -d";
       xcb = "sudo /run/current-system/bin/switch-to-configuration boot";
@@ -31,9 +30,11 @@
       la = "lsd -a";
       lal = "lsd -al";
       ".." = "cd ..";
+      lv = "lvim";
+      rvim = "NVIM_APPNAME=nvim/launch nvim";
     };
 
-    historyIgnore = [ "yt-dpl *" "mpv *"];
+    historyIgnore = [ "yt-dpl *" "mpv *" ];
     # historyIgnore = ["$'*([\t ])+([-%+,./0-9\:@A-Z_a-z])*([\t ])'"];
 
     logoutExtra = ''
