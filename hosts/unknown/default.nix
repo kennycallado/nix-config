@@ -27,7 +27,6 @@ in
   networking.useDHCP = lib.mkDefault false;
 
   console.keyMap = "es";
-  console.font = "Lat2-Terminus16";
 
   time.timeZone = "Europe/Madrid";
   i18n.defaultLocale = "es_ES.UTF-8";

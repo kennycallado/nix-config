@@ -28,7 +28,6 @@ in
   networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
 
   console.keyMap = "es";
-  console.font = "Lat2-Terminus16";
 
   time.timeZone = "Europe/Madrid";
   i18n.defaultLocale = "es_ES.UTF-8";
