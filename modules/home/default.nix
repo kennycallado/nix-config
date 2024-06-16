@@ -53,10 +53,6 @@ in
     userEmail = host.config.user.email; # options for home-manager ??
   };
 
-  home.file.".config/lvim/config.lua" = {
-    source = ./files/lunarvim/config.lua;
-  };
-
   home.file.".ssh/authorized_keys" = mkIf (!is_nixos) {
     text = host.config.user.sshPublicKey;
   };
