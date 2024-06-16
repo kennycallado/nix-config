@@ -110,5 +110,9 @@ in
       rofi-power-menu
       yad # better zenity
     ];
+
+    environment.variables = {
+      WEBKIT_DISABLE_COMPOSITING_MODE=1;
+    };
   };
 }
