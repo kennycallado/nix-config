@@ -28,9 +28,7 @@ in
   home.packages = with pkgs; [
     gh
     # yt-dlp
-    # youtube-tui
-    # lxappearance
-    # pkgs.papirus-icon-theme
+    (import ./scripts/rvim.nix { inherit pkgs; })
   ]
   ++ host.config.extraPackages
   ++ [
