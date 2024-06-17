@@ -3,6 +3,7 @@
 {
   imports = [
     ./gh.nix
+    ./fzf.nix
     ./bash.nix
     ./rofi.nix
     ./icewm.nix
