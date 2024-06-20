@@ -29,6 +29,8 @@ in
     gh
     # yt-dlp
     (import ./scripts/rvim.nix { inherit pkgs; })
+    (import ./scripts/lvim.nix { inherit pkgs; })
+    (import ./scripts/zvim.nix { inherit pkgs; })
   ]
   ++ host.config.extraPackages
   ++ [
