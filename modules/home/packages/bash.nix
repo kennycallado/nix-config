@@ -33,9 +33,7 @@
       lv = "lvim";
     };
 
-    historyIgnore = [ "yt-dpl *" "mpv *" ];
-    # historyIgnore = ["$'*([\t ])+([-%+,./0-9\:@A-Z_a-z])*([\t ])'"];
-
+    historyIgnore = [ "yt-dlp*" "mpv*" ];
     logoutExtra = ''
       sed -i '/.*mp4.*$/d' ~/.bash_history && sed -i '/^yt-dlp/d' ~/.bash_history && sed -i '/^mpv/d' ~/.bash_history
     '';

@@ -30,7 +30,6 @@
   home.packages = with pkgs; [
     # ?? should be in global.nix ??
     fd
-    fzf
     bat
     dua
     lsd

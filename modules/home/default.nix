@@ -1,9 +1,9 @@
-{ inputs, agenix, pkgs, host, is_nixos, ... }:
+{ lib, agenix, pkgs, host, is_nixos, ... }:
 let
   # michaelCtsHm = builtins.fetchTarball "https://github.com/michaelCTS/home-manager/archive/refs/heads/feat/add-nixgl-workaround.zip";
   # nixGlModule = "${michaelCtsHm}/modules/misc/nixgl.nix";
 
-  inherit (inputs.nixpkgs.lib) mkIf;
+  inherit (lib) mkIf;
 in
 {
   imports = [
@@ -26,16 +26,17 @@ in
   # };
 
   home.packages = with pkgs; [
-    gh
-    # yt-dlp
-    (import ./scripts/rvim.nix { inherit pkgs; })
+    gh # in case not installed
+    mpv
+    yt-dlp
     (import ./scripts/lvim.nix { inherit pkgs; })
+    (import ./scripts/rvim.nix { inherit pkgs; })
     (import ./scripts/zvim.nix { inherit pkgs; })
   ]
   ++ host.config.extraPackages
   ++ [
-    inputs.unstable.legacyPackages.${pkgs.system}.yt-dlp
-    inputs.unstable.legacyPackages.${pkgs.system}.mpv
+    # inputs.unstable.legacyPackages.${pkgs.system}.yt-dlp
+    # inputs.unstable.legacyPackages.${pkgs.system}.mpv
   ]
   ++ (
     if is_nixos then [
@@ -43,7 +44,8 @@ in
       (import ./scripts/wez-ssh.nix { inherit pkgs; })
     ] else with pkgs; [
       nixgl.nixGLIntel
-    ]);
+    ]
+  );
 
   programs.home-manager.enable = true;
 
@@ -57,13 +59,13 @@ in
     text = host.config.user.sshPublicKey;
   };
 
-  # home.pointerCursor = {
-  #   gtk.enable = true;
-  #   x11.enable = false;
-  #   package = pkgs.bibata-cursors;
-  #   name = "Bibata-Modern-Ice";
-  #   size = 24;
-  # };
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = false;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 24;
+  };
 
   # services.remmina = {
   #   enable = true;
@@ -80,7 +82,7 @@ in
 
   qt = mkIf (is_nixos) {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme.name = "gtk";
     style.name = "adwaita-dark";
     style.package = pkgs.adwaita-qt;
   };

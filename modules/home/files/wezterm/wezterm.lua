@@ -8,7 +8,7 @@ local config = {}
 if wezterm.config_builder then config = wezterm.config_builder() end
 
 -- QUICK FIX
--- config.enable_wayland = false -- I need it to be true for wl-screenrec
+config.enable_wayland = false -- I need it to be true for wl-screenrec
 
 -- General settings
 config.scrollback_lines = 3000

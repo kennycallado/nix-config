@@ -3,8 +3,8 @@ let
   graphics = {
     services.xserver = {
       enable = true;
-      layout = "es";
-      xkbVariant = "";
+      xkb.layout = "es";
+      xkb.variant = "";
 
       # libinput = {
       #   enable = true;

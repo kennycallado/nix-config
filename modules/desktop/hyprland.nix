@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, ... }:
+{ lib, config, pkgs, ... }:
 
 let
   cfg = config.desktops.hyprland;
@@ -16,6 +16,7 @@ in
       swaynotificationcenter
       libnotify # icewm use its own
       wdisplays
+      wlogout # logout dialog # TODO: implement it
       wl-clipboard
       swww
       grim
@@ -41,7 +42,6 @@ in
     programs = {
       hyprland = {
         enable = true;
-        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       };
 
       # waybar.enable = true;

@@ -1,4 +1,4 @@
-{ pkgs, host, ... }:
+{ host, ... }:
 
 {
   programs.waybar = {
@@ -8,25 +8,21 @@
       layer = "top";
       position = "top";
 
-      modules-left = [ "exit" "hyprland/workspaces" "hyprland/window" ];
-      modules-center = [ "clock" ];
-      modules-right = [ "network" "pulseaudio" "cpu" "memory" "disk" "custom/notification" "tray" ];
+      modules-left = [ "hyprland/window" ];
+      modules-center = [ "network" "pulseaudio" "cpu" "hyprland/workspaces" "memory" "disk" "clock" ];
+      modules-right = [ "custom/notification" "tray" ];
       "hyprland/workspaces" = {
-        format = "{}";
+        format = "{icon}";
         format-icons = {
-          default = "";
-          active = "";
-          urgent = "";
+          default = " ";
+          active = " ";
+          urgent = " ";
         };
+        on-scroll-up = "hyprctl dispatch workspace e+1";
+        on-scroll-down = "hyprctl dispatch workspace e-1";
       };
-
-      "exit" = {
-        on-click = "wlogout";
-        tooltip = false;
-      };
-
       "clock" = {
-        format = "{:%H:%M %a}";
+        format = "{: %H:%M %p}";
         tooltip = false;
       };
       "hyprland/window" = {
@@ -49,7 +45,7 @@
       };
       "network" = {
         format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-        format-ethernet = "󰈁 ";
+        format-ethernet = ": {bandwidthDownOctets} : {bandwidthUpOctets}";
         format-wifi = "{icon} {signalStrength}%";
         format-disconnected = "󰤮";
         tooltip = false;
@@ -114,14 +110,12 @@
       		font-family: JetBrainsMono Nerd Font, Font Awesome, sans-serif;
           		font-weight: bold;
       	}
-
       	window#waybar {
       		    background-color: rgba(26,27,38,0);
           		border-bottom: 1px solid rgba(26,27,38,0);
           		border-radius: 0px;
       		    color: #f8f8f2;
       	}
-
       	#workspaces {
       		    background: linear-gradient(180deg, #414868, #24283b);
           		margin: 5px;
@@ -142,8 +136,6 @@
           		opacity: 1.0;
           		transition: all 0.3s ease-in-out;
       	}
-
-/**
       	#workspaces button.active {
           		color: #15161e;
           		background: #7aa2f7;
@@ -246,7 +238,6 @@
               margin-bottom: 0px;
           		padding: 2px 20px;
       	}
-*/
     '';
 
   };

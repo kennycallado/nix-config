@@ -1,5 +1,6 @@
 { lib, config, pkgs, ... }:
 let
+
   cfg = config.development.lunarvim;
   inherit (lib) mkIf mkEnableOption;
 in
@@ -13,8 +14,7 @@ in
       jq
       fd
       ripgrep
-      lunarvim
-      # rust-analyzer # not sure if this is needed
+      # lunarvim # TODO: temp broken
       html-tidy # rest.nvim
     ];
   };

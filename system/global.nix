@@ -1,4 +1,4 @@
-{ pkgs, inputs, host, lib, config, ... }:
+{ inputs, pkgs, host, lib, config, ... }:
 
 let
   agenix = {
@@ -66,7 +66,7 @@ in
   environment = {
     systemPackages = with pkgs; [
       curl
-      xh
+      xh # curl replacement
       wget
       tree
       file
@@ -79,7 +79,6 @@ in
       lm_sensors
       cryptsetup
     ];
-    # ] ++ host.config.extraPackages; # already in home default
   };
 
   environment.variables = {
