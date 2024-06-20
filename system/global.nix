@@ -47,6 +47,10 @@ in
     users.root.hashedPassword = mkIf (host.config.is_known) "${host.config.user.rootHashedPassword}";
   };
 
+  programs.bash = {
+    blesh.enable = true;
+  };
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
