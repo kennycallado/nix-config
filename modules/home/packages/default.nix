@@ -12,6 +12,7 @@
     ./thunar.nix
     ./zoxide.nix
     ./waybar.nix
+    ./zellij.nix
     ./copilot.nix
     ./joshuto.nix
     ./pcmanfm.nix
